@@ -1,2 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.smartregister.malaria" />
+    package="org.smartregister.malaria">
+
+    <application>
+        <activity android:name="org.smartregister.chw.malaria.activity.MalariaProfileActivity"></activity>
+    </application>
+
+</manifest>

@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">malaria</string>
+    <string name="error_unable_to_start_form">An error occurred when starting the form</string>
+    <string name="any_changes_you_make">Any changes you have made will be lost</string>
+    <string name="home">Home</string>
+    <string name="scan_qr">Scan QR</string>
+    <string name="register_client">Register</string>
+    <string name="job_aids">job_aids</string>
+    <string name="no_unique_id">No unique IDs found</string>
+    <string name="profile_menu">Profile Menu</string>
+    <string name="return_to_profile">Return to Profile</string>
+    <string name="family_head">family head</string>
+    <string name="primary_care_giver">primary care giver</string>
+    <string name="go_to_family_s_profile">go to family profile</string>
+    <string name="family_has_nothing_due">has nothing due</string>
 </resources>

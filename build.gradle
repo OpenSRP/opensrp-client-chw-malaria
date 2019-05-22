@@ -64,7 +64,7 @@ subprojects {
 
 apply plugin : 'java'
 apply plugin : 'build-dashboard'
-apply plugin: 'io.codearte.nexus-staging'
+apply plugin : 'io.codearte.nexus-staging'
 
 buildDashboard {
     reports.html.setDestination(file("build/"))

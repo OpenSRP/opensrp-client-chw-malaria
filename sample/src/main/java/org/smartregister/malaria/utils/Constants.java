@@ -1,23 +1,10 @@
-package org.smartregister.chw.malaria.util;
+package org.smartregister.malaria.utils;
+
+/**
+ * Created by keyman on 12/11/2018.
+ */
 
 public abstract class Constants {
-
-    public static final int REQUEST_CODE_GET_JSON = 2244;
-    public static final String ENCOUNTER_TYPE = "encounter_type";
-
-    public static class JSON_FORM_EXTRA {
-        public static final String  JSON = "json";
-        public static final String  NEXT = "next";
-    }
-
-    public static class EVENT_TYPE {
-        public static final String  MALARIA_REGISTRATION = "Malaria Registration";
-    }
-
-    public static class FORMS {
-        public static final String  MALARIA_REGISTRATION = "malaria_registration";
-    }
-
 
     public static class JSON_FORM_KEY {
         public static final String ENTITY_ID = "entity_id";
@@ -32,6 +19,12 @@ public abstract class Constants {
         public static final String DOB = "dob";
         public static final String DOB_UNKNOWN = "dob_unknown";
         public static final String AGE = "age";
+
+    }
+
+    public static class JSON_FORM_EXTRA {
+        public static final String JSON = "json";
+        public static final String NEXT = "next";
 
     }
 

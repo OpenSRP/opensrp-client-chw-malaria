@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">malaria</string>
     <string name="error_unable_to_start_form">An error occurred when starting the form</string>
+    <string name="any_changes_you_make">Any changes you have made will be lost</string>
 </resources>

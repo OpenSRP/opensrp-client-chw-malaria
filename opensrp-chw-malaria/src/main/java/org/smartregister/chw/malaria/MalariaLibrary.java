@@ -2,6 +2,7 @@ package org.smartregister.chw.malaria;
 
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
+import org.smartregister.chw.malaria.domain.MalariaMetadata;
 import org.smartregister.repository.Repository;
 import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
@@ -13,6 +14,7 @@ public class MalariaLibrary {
     private static MalariaLibrary instance;
 
     private final Context context;
+    private final MalariaMetadata metadata;
     private final Repository repository;
 
     private int applicationVersion;
@@ -24,9 +26,9 @@ public class MalariaLibrary {
     private ClientProcessorForJava clientProcessorForJava;
     private Compressor compressor;
 
-    public static void init(Context context, Repository repository, int applicationVersion, int databaseVersion) {
+    public static void init(Context context, Repository repository, MalariaMetadata metadata, int applicationVersion, int databaseVersion) {
         if (instance == null) {
-            instance = new MalariaLibrary(context, repository, applicationVersion, databaseVersion);
+            instance = new MalariaLibrary(context, repository, metadata, applicationVersion, databaseVersion);
         }
     }
 
@@ -40,10 +42,11 @@ public class MalariaLibrary {
         return instance;
     }
 
-    private MalariaLibrary(Context contextArg, Repository repositoryArg, int applicationVersion, int databaseVersion) {
+    private MalariaLibrary(Context contextArg, Repository repositoryArg, MalariaMetadata metadataArg, int applicationVersion, int databaseVersion) {
         this.context = contextArg;
         this.repository = repositoryArg;
         this.applicationVersion = applicationVersion;
+        this.metadata = metadataArg;
         this.databaseVersion = databaseVersion;
     }
 
@@ -53,6 +56,10 @@ public class MalariaLibrary {
 
     public Repository getRepository() {
         return repository;
+    }
+
+    public MalariaMetadata metadata() {
+        return metadata;
     }
 
     public int getApplicationVersion() {
@@ -102,9 +109,9 @@ public class MalariaLibrary {
      *
      * @param context
      */
-    public static void reset(Context context, Repository repository, int applicationVersion, int databaseVersion) {
+    public static void reset(Context context, Repository repository, MalariaMetadata metadata, int applicationVersion, int databaseVersion) {
         if (context != null) {
-            instance = new MalariaLibrary(context, repository, applicationVersion, databaseVersion);
+            instance = new MalariaLibrary(context, repository, metadata, applicationVersion, databaseVersion);
         }
     }
 }

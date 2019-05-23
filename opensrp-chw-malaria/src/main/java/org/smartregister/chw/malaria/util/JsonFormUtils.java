@@ -68,7 +68,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         String entityId = id;
         form.getJSONObject(METADATA).put(ENCOUNTER_LOCATION, currentLocationId);
 
-        if (Utils.metadata().familyRegister.formName.equals(formName) || Utils.metadata().familyMemberRegister.formName.equals(formName)) {
+        if (Utils.metadata().malariaRegister.formName.equals(formName) || Utils.metadata().familyMemberRegister.formName.equals(formName)) {
             if (StringUtils.isNotBlank(entityId)) {
                 entityId = entityId.replace("-", "");
             }
@@ -76,7 +76,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             JSONArray field = fields(form, STEP1);
             JSONObject uniqueId = getFieldJSONObject(field, Constants.JSON_FORM_KEY.UNIQUE_ID);
 
-            if (formName.equals(Utils.metadata().familyRegister.formName)) {
+            if (formName.equals(Utils.metadata().malariaRegister.formName)) {
                 if (uniqueId != null) {
                     uniqueId.remove(JsonFormUtils.VALUE);
                     uniqueId.put(JsonFormUtils.VALUE, entityId + "_Family");
@@ -146,7 +146,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             baseClient.setBirthdate(new Date(0));
             baseClient.setGender("Male");
 
-            Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, METADATA), formTag(allSharedPreferences), entityId, Utils.metadata().familyRegister.registerEventType, Utils.metadata().familyRegister.tableName);
+            Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, METADATA), formTag(allSharedPreferences), entityId, Utils.metadata().malariaRegister.registerEventType, Utils.metadata().malariaRegister.tableName);
 
             JsonFormUtils.tagSyncMetadata(allSharedPreferences, baseEvent);// tag docs
 
@@ -193,7 +193,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     }
 
     public static MalariaEventClient processFamilyUpdateForm(AllSharedPreferences allSharedPreferences, String jsonString, String familyBaseEntityId) {
-        return processFamilyForm(allSharedPreferences, jsonString, familyBaseEntityId, Utils.metadata().familyRegister.updateEventType);
+        return processFamilyForm(allSharedPreferences, jsonString, familyBaseEntityId, Utils.metadata().malariaRegister.updateEventType);
     }
 
     public static MalariaEventClient processFamilyMemberUpdateRegistrationForm(AllSharedPreferences allSharedPreferences, String jsonString, String familyBaseEntityId) {
@@ -270,14 +270,14 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     public static JSONObject getAutoPopulatedJsonEditFormString(Context context, CommonPersonObjectClient client) {
         try {
-            JSONObject form = FormUtils.getInstance(context).getFormJson(Utils.metadata().familyRegister.formName);
+            JSONObject form = FormUtils.getInstance(context).getFormJson(Utils.metadata().malariaRegister.formName);
             LocationPickerView lpv = new LocationPickerView(context);
             lpv.init();
             // JsonFormUtils.addWomanRegisterHierarchyQuestions(form);
             Log.d(TAG, "Form is " + form.toString());
             if (form != null) {
                 form.put(JsonFormUtils.ENTITY_ID, client.getCaseId());
-                form.put(JsonFormUtils.ENCOUNTER_TYPE, Utils.metadata().familyRegister.updateEventType);
+                form.put(JsonFormUtils.ENCOUNTER_TYPE, Utils.metadata().malariaRegister.updateEventType);
 
                 JSONObject metadata = form.getJSONObject(JsonFormUtils.METADATA);
                 String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());

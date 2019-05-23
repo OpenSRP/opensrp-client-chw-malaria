@@ -1,7 +1,10 @@
 package org.smartregister.chw.malaria.fragment;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 
+import org.smartregister.chw.malaria.activity.BaseMalariaRegisterActivity;
 import org.smartregister.chw.malaria.contract.MalariaRegisterFragmentContract;
 import org.smartregister.chw.malaria.model.BaseMalariaRegisterFragmentModel;
 import org.smartregister.chw.malaria.presenter.BaseMalariaRegisterFragmentPresenter;
@@ -16,6 +19,7 @@ import org.smartregister.malaria.R;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Set;
 
 public class BaseMalariaRegisterFragment extends BaseRegisterFragment implements MalariaRegisterFragmentContract.View {
@@ -67,7 +71,7 @@ public class BaseMalariaRegisterFragment extends BaseRegisterFragment implements
 
     @Override
     protected void startRegistration() {
-//        start forms here if the module requires registration
+        ((BaseMalariaRegisterActivity) getActivity()).startFormActivity(Utils.metadata().malariaRegister.formName, null, null);
     }
 
     @Override

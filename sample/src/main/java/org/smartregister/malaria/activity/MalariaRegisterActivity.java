@@ -1,6 +1,8 @@
-package org.smartregister.chw.malaria.activity;
+package org.smartregister.malaria.activity;
 
 import android.view.MenuItem;
+
+import org.smartregister.chw.malaria.activity.BaseMalariaRegisterActivity;
 
 public class MalariaRegisterActivity extends BaseMalariaRegisterActivity {
 

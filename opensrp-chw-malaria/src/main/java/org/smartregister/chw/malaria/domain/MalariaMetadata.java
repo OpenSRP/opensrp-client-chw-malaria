@@ -12,7 +12,7 @@ public class MalariaMetadata {
     public final String uniqueIdentifierKey;
     public final boolean formWizardValidateRequiredFieldsBefore;
 
-    public FamilyRegister familyRegister;
+    public MalariaRegister malariaRegister;
     public FamilyMemberRegister familyMemberRegister;
     public FamilyDueRegister familyDueRegister;
     public FamilyActivityRegister familyActivityRegister;
@@ -27,7 +27,7 @@ public class MalariaMetadata {
     }
 
     public void updateFamilyRegister(String formName, String tableName, String registerEventType, String updateEventType, String config, String familyHeadRelationKey, String familyCareGiverRelationKey) {
-        this.familyRegister = new FamilyRegister(formName, tableName, registerEventType, updateEventType, config, familyHeadRelationKey, familyCareGiverRelationKey);
+        this.malariaRegister = new MalariaRegister(formName, tableName, registerEventType, updateEventType, config, familyHeadRelationKey, familyCareGiverRelationKey);
     }
 
     public void updateFamilyMemberRegister(String formName, String tableName, String registerEventType, String updateEventType, String config, String familyRelationKey) {
@@ -46,7 +46,7 @@ public class MalariaMetadata {
         this.familyOtherMemberRegister = new FamilyOtherMemberRegister(tableName, currentLimit, showPagination);
     }
 
-    public class FamilyRegister {
+    public class MalariaRegister {
 
         public final String formName;
 
@@ -63,7 +63,7 @@ public class MalariaMetadata {
         public final String familyCareGiverRelationKey;
 
 
-        public FamilyRegister(String formName, String tableName, String registerEventType, String updateEventType, String config, String familyHeadRelationKey, String familyCareGiverRelationKey) {
+        public MalariaRegister(String formName, String tableName, String registerEventType, String updateEventType, String config, String familyHeadRelationKey, String familyCareGiverRelationKey) {
             this.formName = formName;
             this.tableName = tableName;
             this.registerEventType = registerEventType;

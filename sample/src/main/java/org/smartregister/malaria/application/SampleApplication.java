@@ -16,6 +16,7 @@ import org.smartregister.malaria.utils.SampleConstants;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.Repository;
 import org.smartregister.repository.UniqueIdRepository;
+import org.smartregister.view.activity.BaseProfileActivity;
 import org.smartregister.view.activity.DrishtiApplication;
 
 import java.util.ArrayList;
@@ -121,14 +122,13 @@ public class SampleApplication extends DrishtiApplication {
 
 
     private MalariaMetadata getMetadata() {
-        return null;
-//        MalariaMetadata metadata = new MalariaMetadata(MalariaWizardFormActivity.class, MalariaWizardFormActivity.class, MalariaProfileActivity.class, SampleConstants.IDENTIFIER.UNIQUE_IDENTIFIER_KEY, true);
-//        metadata.updateFamilyRegister(SampleConstants.JSON_FORM.FAMILY_REGISTER, SampleConstants.TABLE_NAME.FAMILY, SampleConstants.EventType.FAMILY_REGISTRATION, SampleConstants.EventType.UPDATE_FAMILY_REGISTRATION, SampleConstants.CONFIGURATION.FAMILY_REGISTER, SampleConstants.RELATIONSHIP.FAMILY_HEAD, SampleConstants.RELATIONSHIP.PRIMARY_CAREGIVER);
-//        metadata.updateFamilyMemberRegister(SampleConstants.JSON_FORM.FAMILY_MEMBER_REGISTER, SampleConstants.TABLE_NAME.FAMILY_MEMBER, SampleConstants.EventType.FAMILY_MEMBER_REGISTRATION, SampleConstants.EventType.UPDATE_FAMILY_MEMBER_REGISTRATION, SampleConstants.CONFIGURATION.FAMILY_MEMBER_REGISTER, SampleConstants.RELATIONSHIP.FAMILY);
-//        metadata.updateFamilyDueRegister(SampleConstants.TABLE_NAME.FAMILY_MEMBER, 20, true);
-//        metadata.updateFamilyActivityRegister(SampleConstants.TABLE_NAME.FAMILY_MEMBER, Integer.MAX_VALUE, false);
-//        metadata.updateFamilyOtherMemberRegister(SampleConstants.TABLE_NAME.FAMILY_MEMBER, Integer.MAX_VALUE, false);
-//        return metadata;
+        MalariaMetadata metadata = new MalariaMetadata(MalariaWizardFormActivity.class, MalariaWizardFormActivity.class, BaseProfileActivity.class, SampleConstants.IDENTIFIER.UNIQUE_IDENTIFIER_KEY, true);
+        metadata.updateFamilyRegister(SampleConstants.JSON_FORM.FAMILY_REGISTER, SampleConstants.TABLE_NAME.FAMILY, SampleConstants.EventType.FAMILY_REGISTRATION, SampleConstants.EventType.UPDATE_FAMILY_REGISTRATION, SampleConstants.CONFIGURATION.FAMILY_REGISTER, SampleConstants.RELATIONSHIP.FAMILY_HEAD, SampleConstants.RELATIONSHIP.PRIMARY_CAREGIVER);
+        metadata.updateFamilyMemberRegister(SampleConstants.JSON_FORM.FAMILY_MEMBER_REGISTER, SampleConstants.TABLE_NAME.FAMILY_MEMBER, SampleConstants.EventType.FAMILY_MEMBER_REGISTRATION, SampleConstants.EventType.UPDATE_FAMILY_MEMBER_REGISTRATION, SampleConstants.CONFIGURATION.FAMILY_MEMBER_REGISTER, SampleConstants.RELATIONSHIP.FAMILY);
+        metadata.updateFamilyDueRegister(SampleConstants.TABLE_NAME.FAMILY_MEMBER, 20, true);
+        metadata.updateFamilyActivityRegister(SampleConstants.TABLE_NAME.FAMILY_MEMBER, Integer.MAX_VALUE, false);
+        metadata.updateFamilyOtherMemberRegister(SampleConstants.TABLE_NAME.FAMILY_MEMBER, Integer.MAX_VALUE, false);
+        return metadata;
     }
 
     private void sampleUniqueIds() {

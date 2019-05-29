@@ -247,6 +247,7 @@
 
         </RelativeLayout>
 
+        <include layout="@layout/view_record_malaria" />
         <include layout="@layout/content_base_profile" />
     </android.support.v7.widget.LinearLayoutCompat>
 

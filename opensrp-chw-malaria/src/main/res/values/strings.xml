@@ -13,4 +13,5 @@
     <string name="primary_care_giver">primary care giver</string>
     <string name="go_to_family_s_profile">go to family profile</string>
     <string name="family_has_nothing_due">has nothing due</string>
+    <string name="record_visit">Record malaria follow up</string>
 </resources>

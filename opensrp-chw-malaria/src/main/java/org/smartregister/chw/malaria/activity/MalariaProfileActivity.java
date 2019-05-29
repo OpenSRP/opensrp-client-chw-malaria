@@ -1,15 +1,18 @@
 package org.smartregister.chw.malaria.activity;
 
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.malaria.R;
@@ -53,5 +56,10 @@ public class MalariaProfileActivity extends BaseProfileActivity {
     @Override
     protected void fetchProfileData() {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

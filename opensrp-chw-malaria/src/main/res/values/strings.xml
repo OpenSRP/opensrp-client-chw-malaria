@@ -2,10 +2,7 @@
     <string name="app_name">malaria</string>
     <string name="error_unable_to_start_form">An error occurred when starting the form</string>
     <string name="any_changes_you_make">Any changes you have made will be lost</string>
-    <string name="home">Home</string>
-    <string name="scan_qr">Scan QR</string>
     <string name="register_client">Register</string>
-    <string name="job_aids">job_aids</string>
     <string name="no_unique_id">No unique IDs found</string>
     <string name="profile_menu">Profile Menu</string>
     <string name="return_to_profile">Return to Profile</string>
@@ -14,4 +11,15 @@
     <string name="go_to_family_s_profile">go to family profile</string>
     <string name="family_has_nothing_due">has nothing due</string>
     <string name="record_visit">Record malaria follow up</string>
+    <string name="malaria">Malaria</string>
+
+    <!-- menu -->
+    <string name="add_member">Add Member</string>
+    <string name="sort">Sort</string>
+    <string name="home">Home</string>
+    <string name="add_family">Add family</string>
+    <string name="scan_qr">Scan QR</string>
+    <string name="job_aids">Job Aids</string>
+
+
 </resources>

@@ -148,10 +148,10 @@ public class BaseMalariaRegisterActivity extends BaseRegisterActivity implements
 
         if (bottomNavigationView != null) {
             bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
-            bottomNavigationView.getMenu().removeItem(R.id.action_clients);
+            bottomNavigationView.getMenu().removeItem(org.smartregister.R.id.action_clients);
             bottomNavigationView.getMenu().removeItem(R.id.action_register);
-            bottomNavigationView.getMenu().removeItem(R.id.action_search);
-            bottomNavigationView.getMenu().removeItem(R.id.action_library);
+            bottomNavigationView.getMenu().removeItem(org.smartregister.R.id.action_search);
+            bottomNavigationView.getMenu().removeItem(org.smartregister.R.id.action_library);
 
             bottomNavigationView.inflateMenu(getMenuResource());
             bottomNavigationHelper.disableShiftMode(bottomNavigationView);

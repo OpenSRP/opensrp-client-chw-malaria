@@ -72,11 +72,11 @@ public class BaseMalariaRegisterFragmentPresenter implements MalariaRegisterFrag
 
         if (getView() != null) {
 
-            getView().initializeQueryParams(tableName, countSelect, mainSelect);
-            getView().initializeAdapter(visibleColumns);
-
-            getView().countExecute();
-            getView().filterandSortInInitializeQueries();
+//            getView().initializeQueryParams(tableName, countSelect, mainSelect);
+//            getView().initializeAdapter(visibleColumns);
+//
+//            getView().countExecute();
+//            getView().filterandSortInInitializeQueries();
         }
     }
 

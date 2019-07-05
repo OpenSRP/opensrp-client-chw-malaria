@@ -1,4 +1,4 @@
-package org.smartregister.malaria.utils;
+package org.smartregister.utils;
 
 public class SampleConstants {
 

@@ -1,4 +1,4 @@
-package org.smartregister.malaria.application;
+package org.smartregister.application;
 
 import android.util.Log;
 
@@ -8,9 +8,9 @@ import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.malaria.BuildConfig;
 import org.smartregister.chw.malaria.MalariaLibrary;
-import org.smartregister.malaria.repository.SampleRepository;
+import org.smartregister.repository.SampleRepository;
 import org.smartregister.chw.malaria.util.DBConstants;
-import org.smartregister.malaria.utils.SampleConstants;
+import org.smartregister.utils.SampleConstants;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.Repository;
 import org.smartregister.repository.UniqueIdRepository;

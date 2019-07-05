@@ -1,4 +1,4 @@
-package org.smartregister.malaria.repository;
+package org.smartregister.repository;
 
 import android.content.Context;
 import android.util.Log;
@@ -8,11 +8,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.smartregister.AllConstants;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.malaria.BuildConfig;
-import org.smartregister.malaria.application.SampleApplication;
-import org.smartregister.repository.EventClientRepository;
-import org.smartregister.repository.Repository;
-import org.smartregister.repository.SettingsRepository;
-import org.smartregister.repository.UniqueIdRepository;
+import org.smartregister.application.SampleApplication;
 
 /**
  * Created by keyman on 28/07/2017.

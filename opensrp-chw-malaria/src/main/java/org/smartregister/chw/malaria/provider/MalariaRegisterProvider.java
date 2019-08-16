@@ -72,6 +72,7 @@ public class MalariaRegisterProvider implements RecyclerViewProvider<MalariaRegi
 
     private void populatePatientColumn(CommonPersonObjectClient pc, final RegisterViewHolder viewHolder) {
         try {
+            String ageString = null;
             String fname = getName(
                     Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true),
                     Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true));
@@ -79,8 +80,14 @@ public class MalariaRegisterProvider implements RecyclerViewProvider<MalariaRegi
             String dobString = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false);
             int age = new Period(new DateTime(dobString), new DateTime()).getYears();
 
+            if (age == 0) {
+                ageString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
+            } else {
+                ageString = age + "";
+            }
+
             String patientName = getName(fname, Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true));
-            viewHolder.patientName.setText(patientName + ", " + age);
+            viewHolder.patientName.setText(String.format("%s, %s", patientName, ageString));
             viewHolder.textViewGender.setText(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.GENDER, true));
             viewHolder.textViewVillage.setText(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.VILLAGE_TOWN, true));
 

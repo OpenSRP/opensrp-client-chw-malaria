@@ -91,17 +91,13 @@ public class MalariaRegisterProvider implements RecyclerViewProvider<MalariaRegi
             viewHolder.textViewGender.setText(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.GENDER, true));
             viewHolder.textViewVillage.setText(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.VILLAGE_TOWN, true));
 
-//        add onclick listener to patient column and tag it with the client object
             viewHolder.patientColumn.setOnClickListener(onClickListener);
             viewHolder.patientColumn.setTag(pc);
             viewHolder.patientColumn.setTag(R.id.VIEW_ID, BaseMalariaRegisterFragment.CLICK_VIEW_NORMAL);
 
             Date date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MALARIA_TEST_DATE, false));
             Days days = Days.daysBetween(new LocalDateTime(date), LocalDateTime.now());
-            if (days.getDays() >= 10) {
-                viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
-                viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.visit_status_over_due));
-            }
+            dueColorSequence(days.getDays(), viewHolder);
 
             viewHolder.dueButton.setOnClickListener(onClickListener);
             viewHolder.dueButton.setTag(pc);
@@ -125,6 +121,19 @@ public class MalariaRegisterProvider implements RecyclerViewProvider<MalariaRegi
 
         } catch (Exception e) {
             Timber.e(e);
+        }
+    }
+
+    private void dueColorSequence(int testDate, RegisterViewHolder viewHolder) {
+        if (testDate < 7) {
+            viewHolder.dueWrapper.setVisibility(View.GONE);
+        } else if (testDate < 10) {
+            viewHolder.dueWrapper.setVisibility(View.VISIBLE);
+        } else if (testDate <= 14) {
+            viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
+            viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.visit_status_over_due));
+        } else {
+            viewHolder.registerColumns.setVisibility(View.GONE);
         }
     }
 

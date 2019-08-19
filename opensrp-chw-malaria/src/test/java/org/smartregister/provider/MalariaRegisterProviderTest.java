@@ -1,17 +1,16 @@
-package org.smartregister.chw.malaria.provider;
+package org.smartregister.provider;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.powermock.api.mockito.PowerMockito;
+import org.smartregister.chw.malaria.provider.MalariaRegisterProvider;
 import org.smartregister.configurableviews.model.View;
 
 import java.util.Set;
-
-import static org.mockito.Mockito.validateMockitoUsage;
 
 public class MalariaRegisterProviderTest {
     @Mock
@@ -26,18 +25,11 @@ public class MalariaRegisterProviderTest {
         MockitoAnnotations.initMocks(this);
     }
 
-
-    @After
-    public void validate() {
-        validateMockitoUsage();
-    }
-
     @Test
     public void getView() throws Exception {
         malariaRegisterProvider.getView(null, null, null);
         Mockito.when(visibleColumns.isEmpty()).thenReturn(true);
-//        PowerMockito.verifyPrivate(malariaRegisterProvider).invoke("populatePatientColumn", null, null);
-//        PowerMockito.verifyPrivate(malariaRegisterProvider).invoke("populateLastColumn", null, null);
+        PowerMockito.verifyPrivate(malariaRegisterProvider).invoke("populatePatientColumn", null, null);
     }
 
     @Test

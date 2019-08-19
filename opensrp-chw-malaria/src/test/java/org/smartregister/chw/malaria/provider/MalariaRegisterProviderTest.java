@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 public class MalariaRegisterProviderTest {
@@ -14,6 +15,12 @@ public class MalariaRegisterProviderTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+    }
+
+    @Test
+    public void getView() {
+        malariaRegisterProvider.getView(null, null, null);
+        Mockito.verify(malariaRegisterProvider, Mockito.never()).populatePatientColumn(null, null);
     }
 
     @Test

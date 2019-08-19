@@ -6,10 +6,16 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.smartregister.configurableviews.model.View;
+
+import java.util.Set;
 
 public class MalariaRegisterProviderTest {
     @Mock
     private MalariaRegisterProvider malariaRegisterProvider;
+
+    @Mock
+    private Set<View> visibleColumns;
 
 
     @Before
@@ -20,6 +26,7 @@ public class MalariaRegisterProviderTest {
     @Test
     public void getView() {
         malariaRegisterProvider.getView(null, null, null);
+        Mockito.when(visibleColumns.isEmpty()).thenReturn(false);
         Mockito.verify(malariaRegisterProvider, Mockito.never()).populatePatientColumn(null, null);
     }
 

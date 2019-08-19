@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.powermock.api.mockito.PowerMockito;
 import org.smartregister.configurableviews.model.View;
 
 import java.util.Set;
@@ -24,10 +25,11 @@ public class MalariaRegisterProviderTest {
     }
 
     @Test
-    public void getView() {
+    public void getView() throws Exception {
         malariaRegisterProvider.getView(null, null, null);
         Mockito.when(visibleColumns.isEmpty()).thenReturn(false);
-        Mockito.verify(malariaRegisterProvider, Mockito.never()).populatePatientColumn(null, null);
+        PowerMockito.verifyPrivate(malariaRegisterProvider).invoke("populatePatientColumn", null, null);
+//        PowerMockito.verifyPrivate(malariaRegisterProvider).invoke("populateLastColumn", null, null);
     }
 
     @Test

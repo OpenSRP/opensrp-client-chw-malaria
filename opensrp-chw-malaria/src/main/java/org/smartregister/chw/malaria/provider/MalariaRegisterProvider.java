@@ -70,7 +70,7 @@ public class MalariaRegisterProvider implements RecyclerViewProvider<MalariaRegi
 
     }
 
-    protected void populatePatientColumn(CommonPersonObjectClient pc, final RegisterViewHolder viewHolder) {
+    private void populatePatientColumn(CommonPersonObjectClient pc, final RegisterViewHolder viewHolder) {
         try {
             String fname = getName(
                     Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true),

@@ -83,7 +83,7 @@ public class MalariaRegisterProvider implements RecyclerViewProvider<MalariaRegi
             if (age == 0) {
                 ageString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
             } else {
-                ageString = age + "";
+                ageString = String.valueOf(age);
             }
 
             String patientName = getName(fname, Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true));

@@ -152,7 +152,8 @@
                 android:visibility="visible"/>
 
         <include android:id="@+id/record_visit_malaria"
-                 layout="@layout/view_record_malaria"/>
+            layout="@layout/view_record_malaria" />
 
     </android.support.design.widget.AppBarLayout>
+
 </android.support.design.widget.CoordinatorLayout>

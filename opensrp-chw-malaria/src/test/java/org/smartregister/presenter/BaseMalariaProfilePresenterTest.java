@@ -1,29 +1,42 @@
 package org.smartregister.presenter;
 
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.smartregister.chw.malaria.contract.MalariaProfileContract;
 import org.smartregister.chw.malaria.domain.MemberObject;
 import org.smartregister.chw.malaria.presenter.BaseMalariaProfilePresenter;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.validateMockitoUsage;
 import static org.mockito.Mockito.verify;
 
 public class BaseMalariaProfilePresenterTest {
     @Mock
-    private CommonPersonObjectClient commonPersonObjectClient = Mockito.mock(CommonPersonObjectClient.class);
+    private CommonPersonObjectClient commonPersonObjectClient;
 
     @Mock
-    private MalariaProfileContract.View view = Mockito.mock(MalariaProfileContract.View.class);
+    private MalariaProfileContract.View view;
 
-    @Mock
-    private MemberObject memberObject = new MemberObject(commonPersonObjectClient);
+    private MemberObject memberObject;
 
-    private BaseMalariaProfilePresenter profilePresenter = new BaseMalariaProfilePresenter(view,
-            memberObject);
+    private BaseMalariaProfilePresenter profilePresenter;
+
+    @Before
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+        memberObject = new MemberObject(commonPersonObjectClient);
+        profilePresenter = new BaseMalariaProfilePresenter(view, memberObject);
+    }
+
+    @After
+    public void validate() {
+        validateMockitoUsage();
+    }
 
     @Test
     public void testAttachView() {
@@ -60,4 +73,5 @@ public class BaseMalariaProfilePresenterTest {
         profilePresenter.recordMalariaButton(14);
         verify(view).setOverDueColor();
     }
+
 }

@@ -5,20 +5,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.smartregister.configurableviews.model.View;
-
-import java.util.Set;
 
 import static org.mockito.Mockito.validateMockitoUsage;
 
 public class MalariaRegisterProviderTest {
     @Mock
     private MalariaRegisterProvider malariaRegisterProvider;
-
-    @Mock
-    private Set<View> visibleColumns;
 
 
     @Before
@@ -30,14 +23,6 @@ public class MalariaRegisterProviderTest {
     @After
     public void validate() {
         validateMockitoUsage();
-    }
-
-    @Test
-    public void getView() throws Exception {
-        malariaRegisterProvider.getView(null, null, null);
-        Mockito.when(visibleColumns.isEmpty()).thenReturn(true);
-//        PowerMockito.verifyPrivate(malariaRegisterProvider).invoke("populatePatientColumn", null, null);
-//        PowerMockito.verifyPrivate(malariaRegisterProvider).invoke("populateLastColumn", null, null);
     }
 
     @Test

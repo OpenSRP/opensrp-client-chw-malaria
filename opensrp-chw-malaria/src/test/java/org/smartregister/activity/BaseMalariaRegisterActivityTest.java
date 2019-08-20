@@ -1,12 +1,21 @@
 package org.smartregister.activity;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.smartregister.chw.malaria.activity.BaseMalariaRegisterActivity;
 import org.smartregister.chw.malaria.util.Constants;
 
+import static org.mockito.Mockito.validateMockitoUsage;
+
 public class BaseMalariaRegisterActivityTest {
+
+    @After
+    public void validate() {
+        validateMockitoUsage();
+    }
+
     @Mock
     private BaseMalariaRegisterActivity baseMalariaRegisterActivity = new BaseMalariaRegisterActivity();
 

@@ -6,19 +6,19 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.smartregister.configurableviews.model.View;
-
-import java.util.Set;
 
 import static org.mockito.Mockito.validateMockitoUsage;
+
+//import org.smartregister.configurableviews.model.View;
+//import java.util.Set;
 
 
 public class MalariaRegisterProviderTest {
     @Mock
     private MalariaRegisterProvider malariaRegisterProvider;
 
-    @Mock
-    private Set<View> visibleColumns;
+//    @Mock
+//    private Set<View> visibleColumns;
 
 
     @Before

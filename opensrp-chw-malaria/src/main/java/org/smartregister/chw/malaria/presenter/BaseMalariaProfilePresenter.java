@@ -2,7 +2,6 @@ package org.smartregister.chw.malaria.presenter;
 
 import android.content.Context;
 import android.widget.Toast;
-
 import org.smartregister.chw.malaria.contract.MalariaProfileContract;
 import org.smartregister.chw.malaria.domain.MemberObject;
 import org.smartregister.malaria.R;
@@ -17,7 +16,6 @@ public class BaseMalariaProfilePresenter {
     public BaseMalariaProfilePresenter(MalariaProfileContract.View view, MemberObject memberObject) {
         this.view = view;
         this.memberObject = memberObject;
-
     }
 
     public void attachView(MalariaProfileContract.View view) {
@@ -29,8 +27,10 @@ public class BaseMalariaProfilePresenter {
     }
 
     public void fillProfileData(MemberObject memberObject) {
+        String entityType = memberObject.getBaseEntityId();
         if (memberObject != null) {
             view.setProfileViewWithData();
+            view.setProfileImage(memberObject.getBaseEntityId(), entityType);
         }
     }
 

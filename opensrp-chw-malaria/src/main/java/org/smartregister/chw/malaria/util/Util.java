@@ -3,6 +3,7 @@ package org.smartregister.chw.malaria.util;
 import org.json.JSONObject;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.malaria.R;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.ClientProcessorForJava;
@@ -33,5 +34,9 @@ public class Util {
 
     public static ClientProcessorForJava getClientProcessorForJava() {
         return MalariaLibrary.getInstance().getClientProcessorForJava();
+    }
+
+    public static int getMemberProfileImageResourceIDentifier(String entityType) {
+        return R.mipmap.ic_member;
     }
 }

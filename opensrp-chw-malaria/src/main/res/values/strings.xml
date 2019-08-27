@@ -16,6 +16,8 @@
     <string name="record_malaria">Record malaria follow-up</string>
     <string name="collon">\u00b7</string>
     <string name="return_to_previous_page">Return</string>
+    <string name="family_head">FAMILY HEAD</string>
+    <string name="primary_care_giver">PRIMARY CAREGIVER</string>
 
 
 </resources>

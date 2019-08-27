@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDateTime;
@@ -20,21 +21,25 @@ import org.smartregister.chw.malaria.contract.MalariaProfileContract;
 import org.smartregister.chw.malaria.domain.MemberObject;
 import org.smartregister.chw.malaria.presenter.BaseMalariaProfilePresenter;
 import org.smartregister.chw.malaria.util.Constants;
+import org.smartregister.chw.malaria.util.Util;
+import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.malaria.R;
 import org.smartregister.view.activity.BaseProfileActivity;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class BaseMalariaProfileActivity extends BaseProfileActivity implements MalariaProfileContract.View {
+
     protected MemberObject MEMBER_OBJECT;
     private BaseMalariaProfilePresenter profilePresenter;
     private TextView textViewName, textViewGender, textViewLocation, textViewUniqueID, textViewRecordMalaria;
     private View viewRecordMalaria;
     private View.OnClickListener onClickListener;
+    protected CircleImageView imageView;
 
     public static void startProfileActivity(Activity activity, MemberObject memberObject) {
         Intent intent = new Intent(activity, BaseMalariaProfileActivity.class);
@@ -56,6 +61,8 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
             actionBar.setHomeAsUpIndicator(upArrow);
         }
 
+        imageRenderHelper = new ImageRenderHelper(this);
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 BaseMalariaProfileActivity.this.finish();
@@ -71,11 +78,8 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
         textViewLocation = findViewById(R.id.textview_address);
         textViewUniqueID = findViewById(R.id.textview_id);
         viewRecordMalaria = findViewById(R.id.record_visit_malaria);
-
-
         textViewRecordMalaria = findViewById(R.id.textview_record_malaria);
         textViewRecordMalaria.setOnClickListener(onClickListener);
-
 
         MEMBER_OBJECT = (MemberObject) getIntent().getSerializableExtra(Constants.MALARIA_MEMBER_OBJECT.MEMBER_OBJECT);
 
@@ -108,6 +112,21 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
             }
         }
 
+        if (StringUtils.isNotBlank(MEMBER_OBJECT.getFamilyHead()) && MEMBER_OBJECT.getFamilyHead().equals(MEMBER_OBJECT.getBaseEntityId())) {
+            findViewById(R.id.family_malaria_head).setVisibility(View.VISIBLE);
+        }
+        if (StringUtils.isNotBlank(MEMBER_OBJECT.getPrimaryCareGiver()) && MEMBER_OBJECT.getPrimaryCareGiver().equals(MEMBER_OBJECT.getBaseEntityId())) {
+            findViewById(R.id.primary_malaria_caregiver).setVisibility(View.VISIBLE);
+        }
+
+        imageView = findViewById(R.id.imageview_profile);
+        imageView.setBorderWidth(2);
+
+    }
+
+    @Override
+    public void setProfileImage(String baseEntityId, String entityType) {
+        imageRenderHelper.refreshProfileImage(baseEntityId, imageView, Util.getMemberProfileImageResourceIDentifier(entityType));
     }
 
     @Override
@@ -155,6 +174,5 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
     protected void onDestroy() {
         profilePresenter.detachView();
         super.onDestroy();
-
     }
 }

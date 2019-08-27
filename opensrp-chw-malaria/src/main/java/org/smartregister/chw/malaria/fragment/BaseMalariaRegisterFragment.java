@@ -21,6 +21,7 @@ import java.util.Set;
 
 public class BaseMalariaRegisterFragment extends BaseRegisterFragment implements MalariaRegisterFragmentContract.View {
     public static final String CLICK_VIEW_NORMAL = "click_view_normal";
+
     @Override
     public void initializeAdapter(Set<View> visibleColumns) {
         MalariaRegisterProvider malariaRegisterProvider = new MalariaRegisterProvider(getActivity(), paginationViewHandler,registerActionHandler, visibleColumns,commonRepository());
@@ -112,6 +113,10 @@ public class BaseMalariaRegisterFragment extends BaseRegisterFragment implements
     protected void onViewClicked(android.view.View view) {
         if (getActivity() == null) {
             return;
+        }
+
+        if (view.getTag() instanceof CommonPersonObjectClient && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
+            openProfile((CommonPersonObjectClient) view.getTag());
         }
 
         if (view.getTag() instanceof CommonPersonObjectClient && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {

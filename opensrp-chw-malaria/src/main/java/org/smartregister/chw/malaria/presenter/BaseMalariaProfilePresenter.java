@@ -65,7 +65,7 @@ public class BaseMalariaProfilePresenter implements BaseProfileContract.Presente
 
     @Override
     public void onDestroy(boolean b) {
-
+//        TODO implement onDestroy
     }
 
     @Override
@@ -75,21 +75,21 @@ public class BaseMalariaProfilePresenter implements BaseProfileContract.Presente
 
     @Override
     public void refreshMedicalHistory(boolean hasHistory) {
-
+//        TODO implement onDestroy
     }
 
     @Override
     public void refreshUpComingServicesStatus(String service, AlertStatus status, Date date) {
-
+//        TODO implement onDestroy
     }
 
     @Override
     public void refreshFamilyStatus(AlertStatus status) {
-
+//        TODO implement onDestroy
     }
 
     @Override
     public void setProfileImage(String baseEntityId, String entityType) {
-
+//        TODO implement onDestroy
     }
 }

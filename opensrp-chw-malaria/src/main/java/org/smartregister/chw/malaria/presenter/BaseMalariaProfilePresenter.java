@@ -1,27 +1,28 @@
 package org.smartregister.chw.malaria.presenter;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 import android.widget.Toast;
+
 import org.smartregister.chw.malaria.contract.MalariaProfileContract;
 import org.smartregister.chw.malaria.domain.MemberObject;
+import org.smartregister.domain.AlertStatus;
 import org.smartregister.malaria.R;
 import org.smartregister.view.contract.BaseProfileContract;
 
-import java.lang.ref.WeakReference;
+import java.util.Date;
 
 
-public class BaseMalariaProfilePresenter implements MalariaProfileContract.Presenter {
-    protected WeakReference<MalariaProfileContract.View> view;
+//public class BaseMalariaProfilePresenter implements MalariaProfileContract.Presenter {
 public class BaseMalariaProfilePresenter implements BaseProfileContract.Presenter, MalariaProfileContract.InteractorCallBack, MalariaProfileContract.Presenter {
 
+    //    protected WeakReference<MalariaProfileContract.View> view;
     protected MalariaProfileContract.View view;
     protected MemberObject memberObject;
     protected MalariaProfileContract.Interactor interactor;
     protected Context context;
 
     public BaseMalariaProfilePresenter(MalariaProfileContract.View view, MalariaProfileContract.Interactor interactor, MemberObject memberObject) {
-        this.view = new WeakReference<>(view);
+        this.view = view;
         this.memberObject = memberObject;
         this.interactor = interactor;
     }
@@ -66,17 +67,29 @@ public class BaseMalariaProfilePresenter implements BaseProfileContract.Presente
     public void onDestroy(boolean b) {
 
     }
-    @Override
-    @Nullable
-    public MalariaProfileContract.View getView() {
-        if (view != null && view.get() != null)
-            return view.get();
-
-        return null;
-    }
 
     @Override
     public void refreshProfileBottom() {
         interactor.refreshProfileInfo(memberObject, getView());
+    }
+
+    @Override
+    public void refreshMedicalHistory(boolean hasHistory) {
+
+    }
+
+    @Override
+    public void refreshUpComingServicesStatus(String service, AlertStatus status, Date date) {
+
+    }
+
+    @Override
+    public void refreshFamilyStatus(AlertStatus status) {
+
+    }
+
+    @Override
+    public void setProfileImage(String baseEntityId, String entityType) {
+
     }
 }

@@ -15,7 +15,7 @@
     <string name="interpunct" translatable="false">\u00b7</string>
     <string name="malaria_followup_visit">FOLLOWUP\nVISIT</string>
     <string name="record_malaria">Record malaria follow-up</string>
-    <string name="return_to_previous_page">Return all Malaria Clients</string>
+    <string name="return_to_previous_page">Return to all Malaria Clients</string>
     <string name="last_visit_40_days_ago">Last visit %1$s ago</string>
     <string name="view_medical_history">View medical history</string>
     <string name="view_upcoming_services">View upcoming services</string>
@@ -27,7 +27,6 @@
     <string name="vaccine_service_overdue"><![CDATA[%1$s <font color=#f04646>overdue (%2$s)</font></b>]]></string>
     <string name="vaccine_service_due"><![CDATA[%1$s <font color=#000000>due (%2$s)</font></b>]]></string>
     <string name="collon">\u00b7</string>
-    <string name="return_to_previous_page">Return</string>
     <string name="family_head">FAMILY HEAD</string>
     <string name="primary_care_giver">PRIMARY CAREGIVER</string>
 

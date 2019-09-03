@@ -1,5 +1,4 @@
 package org.smartregister.chw.malaria.contract;
-import org.smartregister.view.contract.BaseProfileContract;
 
 import android.content.Context;
 
@@ -60,15 +59,4 @@ public interface MalariaProfileContract {
         void setProfileImage(String baseEntityId, String entityType);
     }
 
-    interface InteractorCallBack {
-
-    }
-
-    interface Interactor {
-
-    }
-
-    interface Presenter extends BaseProfileContract.Presenter {
-        MalariaProfileContract.View getView();
-    }
 }

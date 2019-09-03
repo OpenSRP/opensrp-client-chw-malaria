@@ -10,6 +10,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
@@ -19,8 +21,11 @@ import org.joda.time.LocalDateTime;
 import org.joda.time.Period;
 import org.smartregister.chw.malaria.contract.MalariaProfileContract;
 import org.smartregister.chw.malaria.domain.MemberObject;
+import org.smartregister.chw.malaria.interactor.BaseMalariaProfileInteractor;
 import org.smartregister.chw.malaria.presenter.BaseMalariaProfilePresenter;
 import org.smartregister.chw.malaria.util.Constants;
+import org.smartregister.chw.malaria.util.Util;
+import org.smartregister.domain.AlertStatus;
 import org.smartregister.chw.malaria.util.Util;
 import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.malaria.R;
@@ -32,11 +37,25 @@ import java.util.Locale;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class BaseMalariaProfileActivity extends BaseProfileActivity implements MalariaProfileContract.View {
-
+public class BaseMalariaProfileActivity extends BaseProfileActivity implements MalariaProfileContract.View, MalariaProfileContract.InteractorCallBack {
     protected MemberObject MEMBER_OBJECT;
-    private BaseMalariaProfilePresenter profilePresenter;
-    private TextView textViewName, textViewGender, textViewLocation, textViewUniqueID, textViewRecordMalaria;
+    protected MalariaProfileContract.Presenter profilePresenter;
+    protected TextView textViewName;
+    protected TextView textViewGender;
+    protected TextView textViewLocation;
+    protected TextView textViewUniqueID;
+    protected TextView textViewRecordMalaria;
+    protected View view_last_visit_row;
+    protected View view_most_due_overdue_row;
+    protected View view_family_row;
+    protected RelativeLayout rlLastVisit;
+    protected RelativeLayout rlUpcomingServices;
+    protected RelativeLayout rlFamilyServicesDue;
+    private TextView tvUpComingServices;
+    private TextView tvFamilyStatus;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM", Locale.getDefault());
+    private ProgressBar progressBar;
+
     private View viewRecordMalaria;
     private View.OnClickListener onClickListener;
     protected CircleImageView imageView;
@@ -61,6 +80,7 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
             actionBar.setHomeAsUpIndicator(upArrow);
         }
 
+        toolbar.setNavigationOnClickListener(v -> BaseMalariaProfileActivity.this.finish());
         imageRenderHelper = new ImageRenderHelper(this);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -78,17 +98,56 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
         textViewLocation = findViewById(R.id.textview_address);
         textViewUniqueID = findViewById(R.id.textview_id);
         viewRecordMalaria = findViewById(R.id.record_visit_malaria);
+        view_last_visit_row = findViewById(R.id.view_last_visit_row);
+        view_most_due_overdue_row = findViewById(R.id.view_most_due_overdue_row);
+        view_family_row = findViewById(R.id.view_family_row);
+
+        tvUpComingServices = findViewById(R.id.textview_name_due);
+        tvFamilyStatus = findViewById(R.id.textview_family_has);
+
+        rlLastVisit = findViewById(R.id.rlLastVisit);
+        rlUpcomingServices = findViewById(R.id.rlUpcomingServices);
+        rlFamilyServicesDue = findViewById(R.id.rlFamilyServicesDue);
+
+        progressBar = findViewById(R.id.progress_bar);
+
+        findViewById(R.id.rlLastVisit).setOnClickListener(this);
+        findViewById(R.id.rlUpcomingServices).setOnClickListener(this);
+        findViewById(R.id.rlFamilyServicesDue).setOnClickListener(this);
+
         textViewRecordMalaria = findViewById(R.id.textview_record_malaria);
         textViewRecordMalaria.setOnClickListener(onClickListener);
+
+        textViewRecordMalaria.setOnClickListener(this);
 
         MEMBER_OBJECT = (MemberObject) getIntent().getSerializableExtra(Constants.MALARIA_MEMBER_OBJECT.MEMBER_OBJECT);
 
         initializePresenter();
 
-        profilePresenter.attachView(this);
-
         profilePresenter.fillProfileData(MEMBER_OBJECT);
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        if (id == R.id.title_layout) {
+            onBackPressed();
+        } else if (id == R.id.rlLastVisit) {
+            this.openMedicalHistory();
+        } else if (id == R.id.rlUpcomingServices) {
+            this.openUpcomingService();
+        } else if (id == R.id.rlFamilyServicesDue) {
+            this.openFamilyDueServices();
+        }
+    }
+
+    @Override
+    protected void initializePresenter() {
+        showProgressBar(true);
+        profilePresenter = new BaseMalariaProfilePresenter(this, new BaseMalariaProfileInteractor(), MEMBER_OBJECT);
+        fetchProfileData();
+        profilePresenter.refreshProfileBottom();
     }
 
     @SuppressLint("DefaultLocale")
@@ -103,8 +162,7 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
 
         if (MEMBER_OBJECT.getMalariaTestDate() != null) {
             try {
-                Date date =
-                        new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(MEMBER_OBJECT.getMalariaTestDate());
+                Date date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(MEMBER_OBJECT.getMalariaTestDate());
                 Days days = Days.daysBetween(new LocalDateTime(date), LocalDateTime.now());
                 profilePresenter.recordMalariaButton(days.getDays());
             } catch (ParseException e) {
@@ -144,12 +202,6 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
         textViewRecordMalaria.setBackground(getResources().getDrawable(R.drawable.record_btn_selector_overdue));
     }
 
-
-    @Override
-    protected void initializePresenter() {
-        profilePresenter = new BaseMalariaProfilePresenter(this, MEMBER_OBJECT);
-    }
-
     @Override
     protected ViewPager setupViewPager(ViewPager viewPager) {
         return null;
@@ -161,18 +213,64 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
     }
 
     @Override
-    public void onClick(View view) {
-        int id = view.getId();
-        if (id == R.id.title_layout) {
-            onBackPressed();
-        } else if (id == R.id.textview_record_malaria) {
-            profilePresenter.recordMalariaFollowUp(this);
-        }
+    public void showProgressBar(boolean status) {
+        progressBar.setVisibility(status ? View.VISIBLE : View.GONE);
     }
 
     @Override
     protected void onDestroy() {
-        profilePresenter.detachView();
         super.onDestroy();
+    }
+
+    @Override
+    public void refreshMedicalHistory(boolean hasHistory) {
+        showProgressBar(false);
+        rlLastVisit.setVisibility(hasHistory ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void refreshUpComingServicesStatus(String service, AlertStatus status, Date date) {
+        showProgressBar(false);
+        if (status == AlertStatus.complete)
+            return;
+
+        view_most_due_overdue_row.setVisibility(View.VISIBLE);
+        rlUpcomingServices.setVisibility(View.VISIBLE);
+
+        if (status == AlertStatus.upcoming) {
+            tvUpComingServices.setText(Util.fromHtml(getString(R.string.vaccine_service_upcoming, service, dateFormat.format(date))));
+        } else {
+            tvUpComingServices.setText(Util.fromHtml(getString(R.string.vaccine_service_due, service, dateFormat.format(date))));
+        }
+    }
+
+    @Override
+    public void refreshFamilyStatus(AlertStatus status) {
+        showProgressBar(false);
+        view_family_row.setVisibility(View.VISIBLE);
+        rlFamilyServicesDue.setVisibility(View.VISIBLE);
+
+        if (status == AlertStatus.complete) {
+            tvFamilyStatus.setText(getString(R.string.family_has_nothing_due));
+        } else if (status == AlertStatus.normal) {
+            tvFamilyStatus.setText(getString(R.string.family_has_services_due));
+        } else if (status == AlertStatus.urgent) {
+            tvFamilyStatus.setText(Util.fromHtml(getString(R.string.family_has_service_overdue)));
+        }
+    }
+
+    @Override
+    public void openMedicalHistory() {
+        //implement
+    }
+
+    @Override
+    public void openUpcomingService() {
+        //implement
+    }
+
+    @Override
+    public void openFamilyDueServices() {
+        //implement
     }
 }

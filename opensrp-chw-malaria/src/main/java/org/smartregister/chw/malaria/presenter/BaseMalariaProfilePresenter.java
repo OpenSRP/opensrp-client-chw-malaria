@@ -1,51 +1,54 @@
 package org.smartregister.chw.malaria.presenter;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.widget.Toast;
 import org.smartregister.chw.malaria.contract.MalariaProfileContract;
 import org.smartregister.chw.malaria.domain.MemberObject;
 import org.smartregister.malaria.R;
 import org.smartregister.view.contract.BaseProfileContract;
 
+import java.lang.ref.WeakReference;
 
+
+public class BaseMalariaProfilePresenter implements MalariaProfileContract.Presenter {
+    protected WeakReference<MalariaProfileContract.View> view;
 public class BaseMalariaProfilePresenter implements BaseProfileContract.Presenter, MalariaProfileContract.InteractorCallBack, MalariaProfileContract.Presenter {
 
     protected MalariaProfileContract.View view;
     protected MemberObject memberObject;
+    protected MalariaProfileContract.Interactor interactor;
     protected Context context;
 
-
-    public BaseMalariaProfilePresenter(MalariaProfileContract.View view, MemberObject memberObject) {
-        this.view = view;
+    public BaseMalariaProfilePresenter(MalariaProfileContract.View view, MalariaProfileContract.Interactor interactor, MemberObject memberObject) {
+        this.view = new WeakReference<>(view);
         this.memberObject = memberObject;
+        this.interactor = interactor;
     }
 
-    public void attachView(MalariaProfileContract.View view) {
-        this.view = view;
-    }
-
-    public void detachView() {
-        this.view = null;
-    }
-
+    @Override
     public void fillProfileData(MemberObject memberObject) {
         String entityType = memberObject.getBaseEntityId();
-        if (memberObject != null) {
-            view.setProfileViewWithData();
+        if (memberObject != null && getView() != null) {
+            getView().setProfileViewWithData();
             view.setProfileImage(memberObject.getBaseEntityId(), entityType);
         }
     }
 
+    @Override
     public void recordMalariaButton(int days_from_malaria_test_date) {
-        if (days_from_malaria_test_date < 7) {
-            view.hideView();
+        if (getView() == null)
+            return;
+
+        if (days_from_malaria_test_date < 7 || days_from_malaria_test_date > 14) {
+            getView().hideView();
         } else if (days_from_malaria_test_date < 10) {
-            view.setDueColor();
+            getView().setDueColor();
         } else
-            view.setOverDueColor();
+            getView().setOverDueColor();
     }
 
-
+    @Override
     public void recordMalariaFollowUp(Context context) {
         Toast.makeText(context, R.string.record_malaria, Toast.LENGTH_SHORT).show();
     }
@@ -62,5 +65,18 @@ public class BaseMalariaProfilePresenter implements BaseProfileContract.Presente
     @Override
     public void onDestroy(boolean b) {
 
+    }
+    @Override
+    @Nullable
+    public MalariaProfileContract.View getView() {
+        if (view != null && view.get() != null)
+            return view.get();
+
+        return null;
+    }
+
+    @Override
+    public void refreshProfileBottom() {
+        interactor.refreshProfileInfo(memberObject, getView());
     }
 }

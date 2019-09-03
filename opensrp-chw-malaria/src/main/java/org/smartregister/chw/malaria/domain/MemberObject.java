@@ -31,6 +31,7 @@ public class MemberObject implements Serializable {
     private String primaryCareGiver;
     private String familyHead;
     private String familyBaseEntityId;
+    protected String familyName;
 
     public MemberObject(CommonPersonObjectClient client) {
         firstName = client.getColumnmaps().get(DBConstants.KEY.FIRST_NAME) != null ? client.getColumnmaps().get(DBConstants.KEY.FIRST_NAME) : "";
@@ -44,7 +45,7 @@ public class MemberObject implements Serializable {
         relationalId = client.getColumnmaps().get(DBConstants.KEY.RELATIONAL_ID);
         primaryCareGiver = client.getColumnmaps().get(DBConstants.KEY.PRIMARY_CARE_GIVER);
         familyHead = client.getColumnmaps().get(DBConstants.KEY.FAMILY_HEAD);
-        familyBaseEntityId = client.getColumnmaps().get(DBConstants.KEY.FAMILY_BASE_ENTITY_ID);
+        familyBaseEntityId = client.getColumnmaps().get(DBConstants.KEY.RELATIONALID);
         relationalid = client.getColumnmaps().get(DBConstants.KEY.RELATIONALID);
         details = client.getColumnmaps().get(DBConstants.KEY.DETAILS);
         isClosed = Boolean.parseBoolean(client.getColumnmaps().get(DBConstants.KEY.IS_CLOSED));
@@ -58,6 +59,7 @@ public class MemberObject implements Serializable {
         llin2Days = client.getColumnmaps().get(DBConstants.KEY.LLIN_2DAYS);
         llinCondition = client.getColumnmaps().get(DBConstants.KEY.LLIN_CONDITION);
         malariaEduChw = client.getColumnmaps().get(DBConstants.KEY.MALARIA_EDU_CHW);
+        familyName = client.getColumnmaps().get(DBConstants.KEY.FAMILY_NAME);
     }
 
     public String getFirstName() {
@@ -260,6 +262,13 @@ public class MemberObject implements Serializable {
         this.familyHead = familyHead;
     }
 
+    public String getFamilyName() {
+        return familyName;
+    }
+
+    public void setFamilyName(String familyName) {
+        this.familyName = familyName;
+    }
 
 
 }

@@ -63,13 +63,6 @@ public class MalariaLibrary {
         return databaseVersion;
     }
 
-    public UniqueIdRepository getUniqueIdRepository() {
-        if (uniqueIdRepository == null) {
-            uniqueIdRepository = new UniqueIdRepository(getRepository());
-        }
-        return uniqueIdRepository;
-    }
-
     public ECSyncHelper getEcSyncHelper() {
         if (syncHelper == null) {
             syncHelper = ECSyncHelper.getInstance(context().applicationContext());

@@ -22,7 +22,7 @@ public interface MalariaRegisterContract {
 
         void startForm(String formName, String entityId, String metadata, String currentLocationId) throws Exception;
 
-        void saveForm(String jsonString, boolean isEditMode);
+        void saveForm(String jsonString);
 
         void closeFamilyRecord(String jsonString);
 
@@ -51,7 +51,7 @@ public interface MalariaRegisterContract {
 
         void getNextUniqueId(Triple<String, String, String> triple, InteractorCallBack callBack);
 
-        void saveRegistration(String jsonString, boolean isEditMode, final InteractorCallBack callBack);
+        void saveRegistration(String jsonString, final InteractorCallBack callBack);
 
         void removeFamilyFromRegister(String closeFormJsonString, String providerId);
 
@@ -63,7 +63,7 @@ public interface MalariaRegisterContract {
 
         void onNoUniqueId();
 
-        void onRegistrationSaved(boolean isEdit);
+        void onRegistrationSaved();
 
     }
 }

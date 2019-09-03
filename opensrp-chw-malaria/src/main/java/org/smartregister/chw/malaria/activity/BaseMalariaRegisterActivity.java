@@ -6,12 +6,11 @@ import android.os.Bundle;
 import android.support.annotation.MenuRes;
 import android.support.design.bottomnavigation.LabelVisibilityMode;
 import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.Context;
@@ -31,17 +30,20 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 import java.util.Arrays;
 import java.util.List;
 
+import timber.log.Timber;
+
 public class BaseMalariaRegisterActivity extends BaseRegisterActivity implements MalariaRegisterContract.View {
-    public static final String TAG = BaseMalariaRegisterActivity.class.getCanonicalName();
 
     protected String BASE_ENTITY_ID;
     protected String ACTION;
+    protected String FORM_NAME;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         BASE_ENTITY_ID = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID);
         ACTION = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.ACTION);
+        FORM_NAME = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.MALARIA_FORM_NAME);
         onStartActivityWithAction();
     }
 
@@ -49,18 +51,14 @@ public class BaseMalariaRegisterActivity extends BaseRegisterActivity implements
      * Process a payload when an activity is started with an action
      */
     protected void onStartActivityWithAction() {
-        if (ACTION != null && ACTION.equals(Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION)) {
-            startFormActivity(getRegistrationForm(), BASE_ENTITY_ID, null);
+        if (FORM_NAME != null && ACTION != null) {
+            startFormActivity(FORM_NAME, BASE_ENTITY_ID, null);
         }
     }
 
     @Override
     public void startRegistration() {
-        startFormActivity(getRegistrationForm(), null, null);
-    }
-
-    public String getRegistrationForm() {
-        return Constants.FORMS.MALARIA_REGISTRATION;
+        startFormActivity(FORM_NAME, null, null);
     }
 
     @Override
@@ -70,7 +68,7 @@ public class BaseMalariaRegisterActivity extends BaseRegisterActivity implements
                 presenter().startForm(formName, entityId, metaData, getLocationID());
             }
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
             displayToast(getString(R.string.error_unable_to_start_form));
         }
     }
@@ -100,27 +98,11 @@ public class BaseMalariaRegisterActivity extends BaseRegisterActivity implements
         return BaseMalariaRegisterActivity.class;
     }
 
-    public String getFormRegistrationEvent() {
-        return Constants.EVENT_TYPE.MALARIA_CONFIRMATION;
-    }
-
-    public String getFormEditRegistrationEvent() {
-        return Constants.EVENT_TYPE.MALARIA_CONFIRMATION;
-    }
 
     @Override
     protected void onActivityResultExtended(int requestCode, int resultCode, Intent data) {
         if (requestCode == Constants.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
-            try {
-                String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
-                JSONObject form = new JSONObject(jsonString);
-                if (form.getString(Constants.ENCOUNTER_TYPE).equals(getRegisterEventType())) {
-                    presenter().saveForm(jsonString, false);
-                }
-            } catch (Exception e) {
-                Log.e(TAG, Log.getStackTraceString(e));
-            }
-
+            presenter().saveForm(data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON));
         }
     }
 
@@ -129,14 +111,6 @@ public class BaseMalariaRegisterActivity extends BaseRegisterActivity implements
         return Arrays.asList(Constants.CONFIGURATION.MALARIA_CONFIRMATION);
     }
 
-    /**
-     * Returns the event type for a malaria registration
-     *
-     * @return
-     */
-    public String getRegisterEventType() {
-        return Constants.EVENT_TYPE.MALARIA_CONFIRMATION;
-    }
 
     /**
      * Override this to subscribe to bottom navigation
@@ -161,7 +135,6 @@ public class BaseMalariaRegisterActivity extends BaseRegisterActivity implements
 
         }
     }
-
 
     @MenuRes
     public int getMenuResource() {
@@ -197,18 +170,12 @@ public class BaseMalariaRegisterActivity extends BaseRegisterActivity implements
         if (resultCode == Activity.RESULT_OK && requestCode == Constants.REQUEST_CODE_GET_JSON) {
             try {
                 String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
-
                 JSONObject form = new JSONObject(jsonString);
-                String encounter_type = form.getString(Constants.JSON_FORM_EXTRA.ENCOUNTER_TYPE);
 //                process malaria form
-                if (encounter_type.equalsIgnoreCase(getFormRegistrationEvent())) {
-                    presenter().saveForm(form.toString(), false);
-                } else if (encounter_type.equalsIgnoreCase(getFormEditRegistrationEvent())) {
-                    presenter().saveForm(form.toString(), true);
-                }
-            } catch (Exception e) {
-                Log.e(TAG, Log.getStackTraceString(e));
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                presenter().saveForm(form.toString());
+            } catch (JSONException e) {
+                Timber.e(e);
+                displayToast(getString(R.string.error_unable_to_save_form));
             }
         }
     }

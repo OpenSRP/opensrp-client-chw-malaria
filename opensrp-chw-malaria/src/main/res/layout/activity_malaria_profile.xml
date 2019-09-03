@@ -94,13 +94,13 @@
                         android:textSize="@dimen/register_member_village_size" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/profile_dot_separator_margin"
-                        android:layout_marginRight="@dimen/profile_dot_separator_margin"
-                        android:text="@string/collon"
-                        android:textColor="@android:color/black" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/profile_dot_separator_margin"
+                            android:layout_marginRight="@dimen/profile_dot_separator_margin"
+                            android:text="@string/interpunct"
+                            android:textColor="@android:color/black"/>
 
                     <org.smartregister.view.customcontrols.CustomFontTextView
                         android:id="@+id/textview_address"
@@ -116,13 +116,13 @@
                         android:textSize="@dimen/register_member_village_size" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/profile_dot_separator_margin"
-                        android:layout_marginRight="@dimen/profile_dot_separator_margin"
-                        android:text="@string/collon"
-                        android:textColor="@android:color/black" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/profile_dot_separator_margin"
+                            android:layout_marginRight="@dimen/profile_dot_separator_margin"
+                            android:text="@string/interpunct"
+                            android:textColor="@android:color/black"/>
 
 
                     <org.smartregister.view.customcontrols.CustomFontTextView
@@ -179,6 +179,8 @@
         <include
             android:id="@+id/record_visit_malaria"
             layout="@layout/view_record_malaria" />
+
+        <include layout="@layout/content_malaria_profile" />
 
     </android.support.design.widget.AppBarLayout>
 </android.support.design.widget.CoordinatorLayout>

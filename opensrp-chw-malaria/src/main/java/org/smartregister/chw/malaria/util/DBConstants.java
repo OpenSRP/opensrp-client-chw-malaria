@@ -38,5 +38,7 @@ public class DBConstants {
         public static final String LAST_HOME_VISIT = "last_home_visit";
         public static final String VISIT_NOT_DONE = "visit_not_done";
         public static final String MALARIA = "malaria";
+        public static final String FAMILY_NAME = "family_name";
+
     }
 }

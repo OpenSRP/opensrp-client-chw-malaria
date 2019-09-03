@@ -1,6 +1,5 @@
 package org.smartregister.presenter;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -20,16 +19,13 @@ public class BaseMalariaProfilePresenterTest {
     private MalariaProfileContract.View view = Mockito.mock(MalariaProfileContract.View.class);
 
     @Mock
+    private MalariaProfileContract.Interactor interactor = Mockito.mock(MalariaProfileContract.Interactor.class);
+
+    @Mock
     private MemberObject memberObject = new MemberObject(commonPersonObjectClient);
 
-    private BaseMalariaProfilePresenter profilePresenter = new BaseMalariaProfilePresenter(view,
-            memberObject);
+    private BaseMalariaProfilePresenter profilePresenter = new BaseMalariaProfilePresenter(view, interactor, memberObject);
 
-    @Test
-    public void testAttachView() {
-        profilePresenter.attachView(view);
-        Assert.assertNotNull(this.view);
-    }
 
     @Test
     public void fillProfileDataCallsSetProfileViewWithDataWhenPassedMemberObject() {

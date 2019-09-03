@@ -35,7 +35,7 @@ public class BaseMalariaRegisterInteractor implements MalariaRegisterContract.In
     }
 
     @Override
-    public void saveRegistration(final String jsonString, final boolean isEditMode, final MalariaRegisterContract.InteractorCallBack callBack) {
+    public void saveRegistration(final String jsonString, final MalariaRegisterContract.InteractorCallBack callBack) {
 
         Runnable runnable = new Runnable() {
             @Override
@@ -50,7 +50,7 @@ public class BaseMalariaRegisterInteractor implements MalariaRegisterContract.In
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
-                        callBack.onRegistrationSaved(isEditMode);
+                        callBack.onRegistrationSaved();
                     }
                 });
             }

@@ -13,7 +13,6 @@ import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.smartregister.chw.malaria.fragment.BaseMalariaRegisterFragment;
 import org.smartregister.chw.malaria.util.DBConstants;
-import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.RecyclerViewProvider;
@@ -29,6 +28,8 @@ import org.smartregister.view.viewholder.OnClickFormLauncher;
 import java.text.MessageFormat;
 import java.util.Set;
 
+import timber.log.Timber;
+
 import static org.smartregister.util.Utils.getName;
 
 public class MalariaRegisterProvider implements RecyclerViewProvider<MalariaRegisterProvider.RegisterViewHolder> {
@@ -36,20 +37,17 @@ public class MalariaRegisterProvider implements RecyclerViewProvider<MalariaRegi
     private final LayoutInflater inflater;
 
     private View.OnClickListener paginationClickListener;
-    private View.OnClickListener onClickListener;
-    private CommonRepository commonRepository;
+    protected View.OnClickListener onClickListener;
     protected static CommonPersonObjectClient client;
     private Context context;
     private Set<org.smartregister.configurableviews.model.View> visibleColumns;
 
     public MalariaRegisterProvider(Context context, View.OnClickListener paginationClickListener, View.OnClickListener onClickListener, Set visibleColumns, CommonRepository commonRepository) {
-
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.paginationClickListener = paginationClickListener;
         this.onClickListener = onClickListener;
         this.visibleColumns = visibleColumns;
         this.context = context;
-        this.commonRepository = commonRepository;
 
     }
 
@@ -58,70 +56,54 @@ public class MalariaRegisterProvider implements RecyclerViewProvider<MalariaRegi
         CommonPersonObjectClient pc = (CommonPersonObjectClient) smartRegisterClient;
         if (visibleColumns.isEmpty()) {
             populatePatientColumn(pc, registerViewHolder);
-            populateLastColumn(pc, registerViewHolder);
         }
-
     }
 
     private void populatePatientColumn(CommonPersonObjectClient pc, final RegisterViewHolder viewHolder) {
-        String fname = getName(
-                Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true),
-                Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true));
+        try {
+            String fname = getName(
+                    Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true),
+                    Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true));
 
-        String dobString = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false);
-        int age = new Period(new DateTime(dobString), new DateTime()).getYears();
+            String dobString = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false);
+            int age = new Period(new DateTime(dobString), new DateTime()).getYears();
 
-        String patientName = getName(fname, Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true));
-        viewHolder.patientName.setText(patientName + ", " + age);
-        viewHolder.textViewGender.setText(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.GENDER, true));
-        viewHolder.textViewVillage.setText(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.VILLAGE_TOWN, true));
+            String patientName = getName(fname, Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true));
+            viewHolder.patientName.setText(patientName + ", " + age);
+            viewHolder.textViewGender.setText(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.GENDER, true));
+            viewHolder.textViewVillage.setText(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.VILLAGE_TOWN, true));
+            viewHolder.patientColumn.setOnClickListener(onClickListener);
+            viewHolder.patientColumn.setTag(pc);
+            viewHolder.patientColumn.setTag(R.id.VIEW_ID, BaseMalariaRegisterFragment.CLICK_VIEW_NORMAL);
 
-//        add onclick listener to patient column and tag it with the client object
-        viewHolder.patientColumn.setOnClickListener(onClickListener);
-        viewHolder.patientColumn.setTag(pc);
-        viewHolder.patientColumn.setTag(R.id.VIEW_ID, BaseMalariaRegisterFragment.CLICK_VIEW_NORMAL);
+            viewHolder.dueButton.setOnClickListener(onClickListener);
+            viewHolder.dueButton.setTag(pc);
+            viewHolder.dueButton.setTag(R.id.VIEW_ID, BaseMalariaRegisterFragment.FOLLOW_UP_VISIT);
+            viewHolder.registerColumns.setOnClickListener(onClickListener);
 
-        viewHolder.dueButton.setOnClickListener(onClickListener);
-        viewHolder.dueButton.setTag(pc);
-        viewHolder.dueButton.setTag(R.id.VIEW_ID, BaseMalariaRegisterFragment.CLICK_VIEW_NORMAL);
-        viewHolder.registerColumns.setOnClickListener(onClickListener);
+            viewHolder.registerColumns.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    viewHolder.patientColumn.performClick();
+                }
+            });
 
-        viewHolder.registerColumns.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewHolder.patientColumn.performClick();
-            }
-        });
+            viewHolder.registerColumns.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    viewHolder.dueButton.performClick();
+                }
+            });
 
-        viewHolder.registerColumns.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewHolder.dueButton.performClick();
-            }
-        });
-
-    }
-
-
-    private void populateLastColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
-        if (commonRepository != null) {
-            CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(pc.entityId());
-            if (commonPersonObject != null) {
-                viewHolder.dueButton.setVisibility(View.VISIBLE);
-                viewHolder.dueButton.setText(R.string.malaria_followup_visit);
-                viewHolder.dueButton.setAllCaps(true);
-            } else {
-                viewHolder.dueButton.setVisibility(View.GONE);
-            }
+        } catch (Exception e) {
+            Timber.e(e);
         }
     }
 
     @Override
     public void getFooterView(RecyclerView.ViewHolder viewHolder, int currentPageCount, int totalPageCount, boolean hasNext, boolean hasPrevious) {
         FooterViewHolder footerViewHolder = (FooterViewHolder) viewHolder;
-        footerViewHolder.pageInfoView.setText(
-                MessageFormat.format(context.getString(org.smartregister.R.string.str_page_info), currentPageCount,
-                        totalPageCount));
+        footerViewHolder.pageInfoView.setText(MessageFormat.format(context.getString(org.smartregister.R.string.str_page_info), currentPageCount, totalPageCount));
 
         footerViewHolder.nextPageView.setVisibility(hasNext ? View.VISIBLE : View.INVISIBLE);
         footerViewHolder.previousPageView.setVisibility(hasPrevious ? View.VISIBLE : View.INVISIBLE);
@@ -138,7 +120,6 @@ public class MalariaRegisterProvider implements RecyclerViewProvider<MalariaRegi
     @Override
     public void onServiceModeSelected(ServiceModeOption serviceModeOption) {
 //        implement
-
     }
 
     @Override
@@ -165,7 +146,7 @@ public class MalariaRegisterProvider implements RecyclerViewProvider<MalariaRegi
 
     @Override
     public boolean isFooterViewHolder(RecyclerView.ViewHolder viewHolder) {
-        return FooterViewHolder.class.isInstance(viewHolder);
+        return viewHolder instanceof FooterViewHolder;
     }
 
     public class RegisterViewHolder extends RecyclerView.ViewHolder {
@@ -184,11 +165,8 @@ public class MalariaRegisterProvider implements RecyclerViewProvider<MalariaRegi
             patientName = itemView.findViewById(R.id.patient_name_age);
             textViewVillage = itemView.findViewById(R.id.text_view_village);
             textViewGender = itemView.findViewById(R.id.text_view_gender);
-
             dueButton = itemView.findViewById(R.id.due_button);
-
             patientColumn = itemView.findViewById(R.id.patient_column);
-
             registerColumns = itemView.findViewById(R.id.register_columns);
             dueWrapper = itemView.findViewById(R.id.due_button_wrapper);
         }

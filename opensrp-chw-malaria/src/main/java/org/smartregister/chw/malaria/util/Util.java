@@ -1,5 +1,9 @@
 package org.smartregister.chw.malaria.util;
 
+import android.os.Build;
+import android.text.Html;
+import android.text.Spanned;
+
 import org.json.JSONObject;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.clientandeventmodel.Event;
@@ -34,6 +38,13 @@ public class Util {
 
     public static ClientProcessorForJava getClientProcessorForJava() {
         return MalariaLibrary.getInstance().getClientProcessorForJava();
+    }
+    public static Spanned fromHtml(String text) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            return Html.fromHtml(text);
+        }
     }
 
     public static int getMemberProfileImageResourceIDentifier(String entityType) {

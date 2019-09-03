@@ -109,11 +109,6 @@ public class BaseMalariaRegisterFragmentPresenter implements MalariaRegisterFrag
 
     @Override
     public String getDueFilterCondition() {
-        return "(( " +
-                "IFNULL(SUBSTR("+ DBConstants.KEY.MALARIA_TEST_DATE + ",7,4) || SUBSTR(" + DBConstants.KEY.MALARIA_TEST_DATE + ",4,2) || SUBSTR(" + DBConstants.KEY.MALARIA_TEST_DATE + ",1,2) || '000000',0) " +
-                "< STRFTIME('%Y%m%d%H%M%S', datetime('now','start of month')) " +
-                "AND IFNULL(STRFTIME('%Y%m%d%H%M%S', datetime((" + DBConstants.KEY.MALARIA_TEST_DATE + ")/1000,'unixepoch')),0) " +
-                "< STRFTIME('%Y%m%d%H%M%S', datetime('now','start of month')) " +
-                " ))";
+        return " (cast( julianday(STRFTIME('%Y-%m-%d', datetime('now'))) -  julianday(IFNULL(SUBSTR(malaria_test_date,7,4)|| '-' || SUBSTR(malaria_test_date,4,2) || '-' || SUBSTR(malaria_test_date,1,2),'')) as integer) between 7 and 14) ";
     }
 }

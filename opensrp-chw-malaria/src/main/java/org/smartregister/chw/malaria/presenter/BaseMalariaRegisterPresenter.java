@@ -41,10 +41,10 @@ public class BaseMalariaRegisterPresenter implements MalariaRegisterContract.Pre
     }
 
     @Override
-    public void saveForm(String jsonString, boolean isEditMode) {
+    public void saveForm(String jsonString) {
         try {
             getView().showProgressDialog(R.string.saving_dialog_title);
-            interactor.saveRegistration(jsonString, isEditMode, this);
+            interactor.saveRegistration(jsonString, this);
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
         }
@@ -66,7 +66,7 @@ public class BaseMalariaRegisterPresenter implements MalariaRegisterContract.Pre
     }
 
     @Override
-    public void onRegistrationSaved(boolean isEdit) {
+    public void onRegistrationSaved() {
         getView().hideProgressDialog();
     }
 

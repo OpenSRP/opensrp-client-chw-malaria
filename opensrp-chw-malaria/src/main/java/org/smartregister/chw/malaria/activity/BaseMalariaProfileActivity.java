@@ -33,6 +33,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class BaseMalariaProfileActivity extends BaseProfileActivity implements MalariaProfileContract.View, MalariaProfileContract.InteractorCallBack {
     protected MemberObject MEMBER_OBJECT;
@@ -52,6 +54,7 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
     private TextView tvFamilyStatus;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM", Locale.getDefault());
     private ProgressBar progressBar;
+    protected CircleImageView imageView;
 
     private View viewRecordMalaria;
 
@@ -96,6 +99,8 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
         rlLastVisit = findViewById(R.id.rlLastVisit);
         rlUpcomingServices = findViewById(R.id.rlUpcomingServices);
         rlFamilyServicesDue = findViewById(R.id.rlFamilyServicesDue);
+        imageView = findViewById(R.id.imageview_profile);
+        imageView.setBorderWidth(2);
 
         progressBar = findViewById(R.id.progress_bar);
 
@@ -242,5 +247,10 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
     @Override
     public void openFamilyDueServices() {
         //implement
+    }
+
+    @Override
+    public void setProfileImage(String baseEntityId, String entityType) {
+        imageRenderHelper.refreshProfileImage(baseEntityId, imageView, Util.getMemberProfileImageResourceIDentifier(entityType));
     }
 }

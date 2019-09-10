@@ -25,8 +25,10 @@ public class BaseMalariaProfilePresenter implements MalariaProfileContract.Prese
 
     @Override
     public void fillProfileData(MemberObject memberObject) {
+        String entityType = memberObject.getBaseEntityId();
         if (memberObject != null && getView() != null) {
             getView().setProfileViewWithData();
+            getView().setProfileImage(memberObject.getBaseEntityId(), entityType);
         }
     }
 

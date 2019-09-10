@@ -7,6 +7,7 @@ import android.text.Spanned;
 import org.json.JSONObject;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.malaria.R;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.ClientProcessorForJava;
@@ -44,5 +45,9 @@ public class Util {
         } else {
             return Html.fromHtml(text);
         }
+    }
+
+    public static int getMemberProfileImageResourceIDentifier(String entityType) {
+        return R.mipmap.ic_member;
     }
 }

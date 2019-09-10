@@ -26,6 +26,8 @@ public interface MalariaProfileContract {
         void openFamilyDueServices();
 
         void showProgressBar(boolean status);
+
+        void setProfileImage(String baseEntityId, String entityType);
     }
 
     interface Presenter {

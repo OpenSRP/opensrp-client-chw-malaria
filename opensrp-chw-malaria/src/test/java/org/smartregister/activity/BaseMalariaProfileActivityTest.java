@@ -1,17 +1,27 @@
 package org.smartregister.activity;
 
+import android.graphics.Color;
+import android.view.View;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 import org.smartregister.chw.malaria.activity.BaseMalariaProfileActivity;
 import org.smartregister.chw.malaria.domain.MemberObject;
 
 public class BaseMalariaProfileActivityTest {
     @Mock
     protected BaseMalariaProfileActivity baseMalariaProfileActivity;
-    protected MemberObject MEMBER_OBJECT;
+
+    @Spy
+    protected BaseMalariaProfileActivity spy;
+
+    @Mock
+    protected View view;
 
     @Before
     public void setUp() {
@@ -21,5 +31,23 @@ public class BaseMalariaProfileActivityTest {
     @Test
     public void assertNotNull() {
         Assert.assertNotNull(baseMalariaProfileActivity);
+    }
+
+    @Test
+    public void setProfileViewWithData() {
+        baseMalariaProfileActivity.setProfileViewWithData();
+        Mockito.verify(view, Mockito.never()).setVisibility(View.VISIBLE);
+    }
+
+    @Test
+    public void setDueColor() {
+        baseMalariaProfileActivity.setDueColor();
+        Mockito.verify(view, Mockito.never()).setBackgroundColor(Color.BLUE);
+    }
+
+    @Test
+    public void setOverDueColor() {
+        baseMalariaProfileActivity.setOverDueColor();
+        Mockito.verify(view, Mockito.never()).setBackgroundColor(Color.RED);
     }
 }

@@ -11,7 +11,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 import org.smartregister.chw.malaria.activity.BaseMalariaProfileActivity;
-import org.smartregister.chw.malaria.domain.MemberObject;
 
 public class BaseMalariaProfileActivityTest {
     @Mock

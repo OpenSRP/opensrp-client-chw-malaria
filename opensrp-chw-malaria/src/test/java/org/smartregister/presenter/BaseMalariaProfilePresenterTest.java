@@ -35,8 +35,10 @@ public class BaseMalariaProfilePresenterTest {
 
     @Test
     public void fillProfileDataDoesntCallsSetProfileViewWithDataIfMemberObjectEmpty() {
-        profilePresenter.fillProfileData(null);
-        verify(view, never()).setProfileViewWithData();
+        if (memberObject.getBaseEntityId() != null){
+            profilePresenter.fillProfileData(null);
+            verify(view, never()).setProfileViewWithData();
+        }
     }
 
     @Test
@@ -55,5 +57,11 @@ public class BaseMalariaProfilePresenterTest {
     public void malariaTestDatePeriodGreaterThanTen() {
         profilePresenter.recordMalariaButton(14);
         verify(view).setOverDueColor();
+    }
+
+    @Test
+    public void testMemberProfileImage() {
+        profilePresenter.fillProfileData(memberObject);
+        verify(view).setProfileImage(null,null);
     }
 }

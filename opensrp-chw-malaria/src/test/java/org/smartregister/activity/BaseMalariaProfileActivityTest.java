@@ -49,4 +49,10 @@ public class BaseMalariaProfileActivityTest {
         baseMalariaProfileActivity.setOverDueColor();
         Mockito.verify(view, Mockito.never()).setBackgroundColor(Color.RED);
     }
+
+    @Test
+    public void setProfileImage() {
+        baseMalariaProfileActivity.setProfileImage("Id","Type");
+        Mockito.verify(view, Mockito.never()).setVisibility(View.VISIBLE);
+    }
 }

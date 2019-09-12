@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDateTime;
@@ -159,6 +160,13 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+        }
+
+        if (StringUtils.isNotBlank(MEMBER_OBJECT.getFamilyHead()) && MEMBER_OBJECT.getFamilyHead().equals(MEMBER_OBJECT.getBaseEntityId())) {
+            findViewById(R.id.family_malaria_head).setVisibility(View.VISIBLE);
+        }
+        if (StringUtils.isNotBlank(MEMBER_OBJECT.getPrimaryCareGiver()) && MEMBER_OBJECT.getPrimaryCareGiver().equals(MEMBER_OBJECT.getBaseEntityId())) {
+            findViewById(R.id.primary_malaria_caregiver).setVisibility(View.VISIBLE);
         }
     }
 

@@ -2,7 +2,6 @@ package org.smartregister.chw.malaria.interactor;
 
 import android.support.annotation.VisibleForTesting;
 
-import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.malaria.contract.MalariaRegisterContract;
 import org.smartregister.chw.malaria.util.AppExecutors;
@@ -25,42 +24,18 @@ public class BaseMalariaRegisterInteractor implements MalariaRegisterContract.In
     }
 
     @Override
-    public void onDestroy(boolean isChangingConfiguration) {
-//        implement
-    }
-
-    @Override
-    public void getNextUniqueId(Triple<String, String, String> triple, MalariaRegisterContract.InteractorCallBack callBack) {
-//        implement
-    }
-
-    @Override
     public void saveRegistration(final String jsonString, final MalariaRegisterContract.InteractorCallBack callBack) {
 
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                // save it
-                try {
-                    saveRegistration(jsonString);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.onRegistrationSaved();
-                    }
-                });
+        Runnable runnable = () -> {
+            try {
+                saveRegistration(jsonString);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+
+            appExecutors.mainThread().execute(() -> callBack.onRegistrationSaved());
         };
         appExecutors.diskIO().execute(runnable);
-    }
-
-    @Override
-    public void removeFamilyFromRegister(String closeFormJsonString, String providerId) {
-//        implement
     }
 
     private void saveRegistration(final String jsonString) throws Exception {

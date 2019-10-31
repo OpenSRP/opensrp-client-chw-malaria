@@ -3,8 +3,6 @@
     <string name="error_unable_to_start_form">An error occurred when starting the form</string>
     <string name="error_unable_to_save_form">An error occurred when saving the form</string>
     <string name="malaria">Malaria</string>
-
-    <!-- menu -->
     <string name="add_member">Add Member</string>
     <string name="sort">Sort</string>
     <string name="home">Home</string>
@@ -38,6 +36,10 @@
     <string name="record_anc_visit_not_done">ANC visit not done</string>
     <string name="not_visiting_this_month">Not visiting this month</string>
     <string name="undo">UNDO</string>
+    <string name="view_malaria_test_result">View malaria test results</string>
+    <string name="malaria_positive">Malaria positive</string>
+    <string name="anc_string">ANC</string>
+    <string name="pnc_string">PNC</string>
     <string name="call_family_head">Head of Family</string>
     <string name="call_primary_caregiver">Primary Caregiver</string>
     <string name="call_anc_client">ANC Client</string>

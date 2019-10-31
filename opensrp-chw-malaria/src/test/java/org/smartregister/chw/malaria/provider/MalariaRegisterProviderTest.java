@@ -25,4 +25,9 @@ public class MalariaRegisterProviderTest {
     public void newFormLauncher() {
         Assert.assertNull(malariaRegisterProvider.newFormLauncher(null, null, null));
     }
+
+    @Test
+    public void checkInflater() {
+        Assert.assertNull(malariaRegisterProvider.inflater());
+    }
 }

@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -53,15 +52,17 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
     protected TextView textViewUniqueID;
     protected TextView textViewRecordMalaria;
     protected TextView textViewRecordAnc;
-    protected TextView textViewAncVisitNotDone;
+    protected TextView textview_positive_date;
     protected View view_last_visit_row;
     protected View view_most_due_overdue_row;
     protected View view_family_row;
+    protected View view_positive_date_row;
     protected RelativeLayout rlLastVisit;
     protected RelativeLayout rlUpcomingServices;
     protected RelativeLayout rlFamilyServicesDue;
     protected RelativeLayout visitStatus;
     protected TextView textViewUndo;
+    protected RelativeLayout rlMalariaPositiveDate;
     private TextView tvUpComingServices;
     private TextView tvFamilyStatus;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM", Locale.getDefault());
@@ -101,13 +102,16 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
         view_last_visit_row = findViewById(R.id.view_last_visit_row);
         view_most_due_overdue_row = findViewById(R.id.view_most_due_overdue_row);
         view_family_row = findViewById(R.id.view_family_row);
+        view_positive_date_row = findViewById(R.id.view_positive_date_row);
 
         tvUpComingServices = findViewById(R.id.textview_name_due);
         tvFamilyStatus = findViewById(R.id.textview_family_has);
+        textview_positive_date = findViewById(R.id.textview_positive_date);
 
         rlLastVisit = findViewById(R.id.rlLastVisit);
         rlUpcomingServices = findViewById(R.id.rlUpcomingServices);
         rlFamilyServicesDue = findViewById(R.id.rlFamilyServicesDue);
+        rlMalariaPositiveDate = findViewById(R.id.rlMalariaPositiveDate);
 
         progressBar = findViewById(R.id.progress_bar);
 
@@ -116,15 +120,13 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
         findViewById(R.id.rlLastVisit).setOnClickListener(this);
         findViewById(R.id.rlUpcomingServices).setOnClickListener(this);
         findViewById(R.id.rlFamilyServicesDue).setOnClickListener(this);
+        rlMalariaPositiveDate.setOnClickListener(this);
 
         textViewRecordMalaria = findViewById(R.id.textview_record_malaria);
         textViewRecordMalaria.setOnClickListener(this);
 
         textViewRecordAnc = findViewById(R.id.textview_record_anc);
         textViewRecordAnc.setOnClickListener(this);
-
-        textViewAncVisitNotDone = findViewById(R.id.textview_anc_visit_not_done);
-        textViewAncVisitNotDone.setOnClickListener(this);
 
         textViewUndo = findViewById(R.id.textview_undo);
         textViewUndo.setOnClickListener(this);
@@ -205,6 +207,9 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
         }
         if (StringUtils.isNotBlank(MEMBER_OBJECT.getPrimaryCareGiver()) && MEMBER_OBJECT.getPrimaryCareGiver().equals(MEMBER_OBJECT.getBaseEntityId())) {
             findViewById(R.id.primary_malaria_caregiver).setVisibility(View.VISIBLE);
+        }
+        if (StringUtils.isNotBlank(MEMBER_OBJECT.getMalariaTestDate())) {
+            textview_positive_date.setText(getString(R.string.malaria_positive)+" "+formatTime(MEMBER_OBJECT.getMalariaTestDate()));
         }
     }
 
@@ -293,5 +298,17 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
     @Override
     public void openFamilyDueServices() {
         //implement
+    }
+
+    private CharSequence formatTime(String dateTime) {
+        CharSequence timePassedString = null;
+        try {
+            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+            Date date = df.parse(dateTime);
+            timePassedString = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return timePassedString;
     }
 }

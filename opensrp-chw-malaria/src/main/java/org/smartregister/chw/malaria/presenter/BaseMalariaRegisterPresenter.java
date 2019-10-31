@@ -3,7 +3,6 @@ package org.smartregister.chw.malaria.presenter;
 import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.smartregister.chw.malaria.contract.MalariaRegisterContract;
 import org.smartregister.malaria.R;
@@ -26,11 +25,6 @@ public class BaseMalariaRegisterPresenter implements MalariaRegisterContract.Pre
     }
 
     @Override
-    public void saveLanguage(String language) {
-//        implement
-    }
-
-    @Override
     public void startForm(String formName, String entityId, String metadata, String currentLocationId) throws Exception {
         if (StringUtils.isBlank(entityId)) {
             return;
@@ -48,21 +42,6 @@ public class BaseMalariaRegisterPresenter implements MalariaRegisterContract.Pre
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
         }
-    }
-
-    @Override
-    public void closeFamilyRecord(String jsonString) {
-//        implement
-    }
-
-    @Override
-    public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
-//        implement
-    }
-
-    @Override
-    public void onNoUniqueId() {
-//        implement
     }
 
     @Override

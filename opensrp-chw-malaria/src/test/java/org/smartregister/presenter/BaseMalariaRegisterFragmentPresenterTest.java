@@ -52,6 +52,4 @@ public class BaseMalariaRegisterFragmentPresenterTest {
         Assert.assertEquals(Constants.TABLES.MALARIA_CONFIRMATION, baseMalariaRegisterFragmentPresenter.getMainTable());
     }
 
-
-
 }

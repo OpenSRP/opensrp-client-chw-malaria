@@ -30,26 +30,8 @@
             android:paddingRight="30dp"
             android:paddingBottom="10dp"
             android:text="@string/record_anc"
-            android:textColor="@color/white" />
-
-        <org.smartregister.view.customcontrols.CustomFontTextView
-            android:id="@+id/textview_anc_visit_not_done"
-            style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center_horizontal"
-            android:background="@drawable/border"
-            android:paddingLeft="30dp"
-            android:paddingTop="10dp"
-            android:paddingRight="30dp"
-            android:paddingBottom="10dp"
-            android:text="@string/record_anc_visit_not_done"
-            android:textColor="@color/grey"
-            android:visibility="visible" />
-
+            android:textColor="@color/white"
+            android:visibility="gone"/>
 
         <RelativeLayout
             android:id="@+id/record_visit_status_bar"

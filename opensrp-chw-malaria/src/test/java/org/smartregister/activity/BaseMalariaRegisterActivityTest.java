@@ -14,4 +14,25 @@ public class BaseMalariaRegisterActivityTest {
         Assert.assertEquals(BaseMalariaRegisterActivity.class,
                 baseMalariaRegisterActivity.getFamilyFormActivity());
     }
+
+    @Test
+    public void assertNotNull() {
+        Assert.assertNotNull(baseMalariaRegisterActivity);
+    }
+
+    @Test
+    public void testFormConfig() {
+        Assert.assertNull(baseMalariaRegisterActivity.getFormConfig());
+    }
+
+    @Test
+    public void checkFamilyForm() {
+        Assert.assertNotNull(baseMalariaRegisterActivity.getFamilyFormActivity());
+    }
+
+    @Test
+    public void checkIdentifier() {
+        Assert.assertNotNull(baseMalariaRegisterActivity.getViewIdentifiers());
+    }
+
 }

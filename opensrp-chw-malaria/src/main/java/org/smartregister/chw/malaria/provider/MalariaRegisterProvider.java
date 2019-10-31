@@ -59,18 +59,28 @@ public class MalariaRegisterProvider implements RecyclerViewProvider<MalariaRegi
         }
     }
 
+    private String updateMemberGender(CommonPersonObjectClient commonPersonObjectClient) {
+        if ("0".equals(Utils.getValue(commonPersonObjectClient.getColumnmaps(), "is_anc_closed", false))) {
+            return context.getResources().getString(R.string.anc_string);
+        } else if ("0".equals(Utils.getValue(commonPersonObjectClient.getColumnmaps(), "is_pnc_closed", false))) {
+            return context.getResources().getString(R.string.pnc_string);
+        } else
+            return Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.GENDER, true);
+    }
+
     private void populatePatientColumn(CommonPersonObjectClient pc, final RegisterViewHolder viewHolder) {
         try {
-            String fname = getName(
+
+            String firstName = getName(
                     Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true),
                     Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true));
 
             String dobString = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false);
             int age = new Period(new DateTime(dobString), new DateTime()).getYears();
 
-            String patientName = getName(fname, Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true));
+            String patientName = getName(firstName, Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true));
             viewHolder.patientName.setText(patientName + ", " + age);
-            viewHolder.textViewGender.setText(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.GENDER, true));
+            viewHolder.textViewGender.setText(updateMemberGender(pc));
             viewHolder.textViewVillage.setText(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.VILLAGE_TOWN, true));
             viewHolder.patientColumn.setOnClickListener(onClickListener);
             viewHolder.patientColumn.setTag(pc);
@@ -151,6 +161,7 @@ public class MalariaRegisterProvider implements RecyclerViewProvider<MalariaRegi
 
     public class RegisterViewHolder extends RecyclerView.ViewHolder {
         public TextView patientName;
+        public TextView parentName;
         public TextView textViewVillage;
         public TextView textViewGender;
         public Button dueButton;
@@ -162,6 +173,7 @@ public class MalariaRegisterProvider implements RecyclerViewProvider<MalariaRegi
         public RegisterViewHolder(View itemView) {
             super(itemView);
 
+            parentName = itemView.findViewById(R.id.patient_parent_name);
             patientName = itemView.findViewById(R.id.patient_name_age);
             textViewVillage = itemView.findViewById(R.id.text_view_village);
             textViewGender = itemView.findViewById(R.id.text_view_gender);

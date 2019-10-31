@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -115,7 +116,7 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
 
         progressBar = findViewById(R.id.progress_bar);
 
-        visitStatus = findViewById(R.id.record_visit_status_bar);
+        visitStatus = findViewById(R.id.record_visit_not_done_bar);
 
         findViewById(R.id.rlLastVisit).setOnClickListener(this);
         findViewById(R.id.rlUpcomingServices).setOnClickListener(this);

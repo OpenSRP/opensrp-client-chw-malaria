@@ -53,6 +53,7 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
     protected TextView textViewUniqueID;
     protected TextView textViewRecordMalaria;
     protected TextView textViewRecordAnc;
+    protected TextView textViewRecordAncNotDone;
     protected TextView textview_positive_date;
     protected View view_last_visit_row;
     protected View view_most_due_overdue_row;
@@ -129,6 +130,9 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
         textViewRecordAnc = findViewById(R.id.textview_record_anc);
         textViewRecordAnc.setOnClickListener(this);
 
+        textViewRecordAncNotDone = findViewById(R.id.textview_record_anc_not_done);
+        textViewRecordAncNotDone.setOnClickListener(this);
+
         textViewUndo = findViewById(R.id.textview_undo);
         textViewUndo.setOnClickListener(this);
 
@@ -148,6 +152,8 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
     @Override
     protected void setupViews() {
         initializeFloatingMenu();
+        recordAnc(MEMBER_OBJECT);
+        recordPnc(MEMBER_OBJECT);
     }
 
     @Override
@@ -162,6 +168,7 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
         } else if (id == R.id.rlFamilyServicesDue) {
             this.openFamilyDueServices();
         }
+
     }
 
     @Override
@@ -311,5 +318,13 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
             e.printStackTrace();
         }
         return timePassedString;
+    }
+
+    protected void recordAnc(MemberObject memberObject) {
+//        implement
+    }
+
+    protected void recordPnc(MemberObject memberObject) {
+//        implement
     }
 }

@@ -24,6 +24,10 @@ public interface MalariaProfileContract {
         void openFamilyDueServices();
 
         void showProgressBar(boolean status);
+
+        void recordAnc(MemberObject memberObject);
+
+        void recordPnc(MemberObject memberObject);
     }
 
     interface Presenter {

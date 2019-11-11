@@ -252,6 +252,16 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
     }
 
     @Override
+    public void recordAnc(MemberObject memberObject) {
+        //implement
+    }
+
+    @Override
+    public void recordPnc(MemberObject memberObject) {
+        //implement
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
     }
@@ -317,13 +327,5 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
             e.printStackTrace();
         }
         return timePassedString;
-    }
-
-    protected void recordAnc(MemberObject memberObject) {
-//        implement
-    }
-
-    protected void recordPnc(MemberObject memberObject) {
-//        implement
     }
 }

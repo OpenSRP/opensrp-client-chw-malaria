@@ -57,4 +57,14 @@ public class BaseMalariaProfileActivityTest {
         }
     }
 
+    @Test
+    public void setupView() throws Exception {
+        BaseMalariaProfileActivity baseMalariaProfileActivity = Mockito.spy(BaseMalariaProfileActivity.class);
+        Mockito.doNothing().when(baseMalariaProfileActivity).initializeFloatingMenu();
+        Whitebox.invokeMethod(baseMalariaProfileActivity, "setupViews");
+        Mockito.verify(baseMalariaProfileActivity).recordAnc(null);
+        Mockito.verify(baseMalariaProfileActivity).recordPnc(null);
+    }
+
+
 }

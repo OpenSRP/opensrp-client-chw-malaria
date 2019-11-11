@@ -17,8 +17,6 @@ public class MalariaLibrary {
 
     private int applicationVersion;
     private int databaseVersion;
-
-    private UniqueIdRepository uniqueIdRepository;
     private ECSyncHelper syncHelper;
 
     private ClientProcessorForJava clientProcessorForJava;
@@ -70,7 +68,6 @@ public class MalariaLibrary {
         return syncHelper;
     }
 
-
     public ClientProcessorForJava getClientProcessorForJava() {
         if (clientProcessorForJava == null) {
             clientProcessorForJava = ClientProcessorForJava.getInstance(context().applicationContext());
@@ -82,22 +79,4 @@ public class MalariaLibrary {
         this.clientProcessorForJava = clientProcessorForJava;
     }
 
-    public Compressor getCompressor() {
-        if (compressor == null) {
-            compressor = Compressor.getDefault(context().applicationContext());
-        }
-        return compressor;
-    }
-
-    /**
-     * Use this method when testing.
-     * It should replace org.smartregister.Context#setInstance(org.smartregister.Context, org.smartregister.repository.Repository) which has been removed
-     *
-     * @param context
-     */
-    public static void reset(Context context, Repository repository, int applicationVersion, int databaseVersion) {
-        if (context != null) {
-            instance = new MalariaLibrary(context, repository, applicationVersion, databaseVersion);
-        }
-    }
 }

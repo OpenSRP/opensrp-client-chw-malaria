@@ -42,10 +42,6 @@ public class AppExecutors {
         return diskIO;
     }
 
-    public Executor networkIO() {
-        return networkIO;
-    }
-
     public Executor mainThread() {
         return mainThread;
     }

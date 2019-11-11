@@ -57,6 +57,7 @@ public class Util {
     public static ClientProcessorForJava getClientProcessorForJava() {
         return MalariaLibrary.getInstance().getClientProcessorForJava();
     }
+
     public static Spanned fromHtml(String text) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY);
@@ -65,19 +66,12 @@ public class Util {
         }
     }
 
-
     public static boolean launchDialer(final Activity activity, final BaseMalariaCallDialogContract.View callView, final String phoneNumber) {
-
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
 
             // set a pending call execution request
             if (callView != null) {
-                callView.setPendingCallRequest(new BaseMalariaCallDialogContract.Dialer() {
-                    @Override
-                    public void callMe() {
-                        Util.launchDialer(activity, callView, phoneNumber);
-                    }
-                });
+                callView.setPendingCallRequest(() -> Util.launchDialer(activity, callView, phoneNumber));
             }
 
             ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_PHONE_STATE}, PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE);

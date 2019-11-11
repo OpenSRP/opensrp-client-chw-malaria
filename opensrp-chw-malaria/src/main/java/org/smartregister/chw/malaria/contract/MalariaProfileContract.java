@@ -1,7 +1,5 @@
 package org.smartregister.chw.malaria.contract;
 
-import android.content.Context;
-
 import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.malaria.domain.MemberObject;
 import org.smartregister.domain.AlertStatus;
@@ -36,8 +34,6 @@ public interface MalariaProfileContract {
         View getView();
 
         void refreshProfileBottom();
-
-        void recordMalariaFollowUp(Context context);
 
         void recordMalariaButton(int days);
     }

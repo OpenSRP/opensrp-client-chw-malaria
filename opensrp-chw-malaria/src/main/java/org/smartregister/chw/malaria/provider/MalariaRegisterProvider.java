@@ -14,7 +14,6 @@ import org.joda.time.Period;
 import org.smartregister.chw.malaria.fragment.BaseMalariaRegisterFragment;
 import org.smartregister.chw.malaria.util.DBConstants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.RecyclerViewProvider;
 import org.smartregister.malaria.R;
 import org.smartregister.util.Utils;
@@ -38,17 +37,15 @@ public class MalariaRegisterProvider implements RecyclerViewProvider<MalariaRegi
 
     private View.OnClickListener paginationClickListener;
     protected View.OnClickListener onClickListener;
-    protected static CommonPersonObjectClient client;
     private Context context;
     private Set<org.smartregister.configurableviews.model.View> visibleColumns;
 
-    public MalariaRegisterProvider(Context context, View.OnClickListener paginationClickListener, View.OnClickListener onClickListener, Set visibleColumns, CommonRepository commonRepository) {
+    public MalariaRegisterProvider(Context context, View.OnClickListener paginationClickListener, View.OnClickListener onClickListener, Set visibleColumns) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.paginationClickListener = paginationClickListener;
         this.onClickListener = onClickListener;
         this.visibleColumns = visibleColumns;
         this.context = context;
-
     }
 
     @Override
@@ -91,19 +88,8 @@ public class MalariaRegisterProvider implements RecyclerViewProvider<MalariaRegi
             viewHolder.dueButton.setTag(R.id.VIEW_ID, BaseMalariaRegisterFragment.FOLLOW_UP_VISIT);
             viewHolder.registerColumns.setOnClickListener(onClickListener);
 
-            viewHolder.registerColumns.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    viewHolder.patientColumn.performClick();
-                }
-            });
-
-            viewHolder.registerColumns.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    viewHolder.dueButton.performClick();
-                }
-            });
+            viewHolder.registerColumns.setOnClickListener(v -> viewHolder.patientColumn.performClick());
+            viewHolder.registerColumns.setOnClickListener(v -> viewHolder.dueButton.performClick());
 
         } catch (Exception e) {
             Timber.e(e);

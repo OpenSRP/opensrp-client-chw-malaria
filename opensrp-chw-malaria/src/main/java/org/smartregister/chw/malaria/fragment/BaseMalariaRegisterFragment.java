@@ -26,7 +26,7 @@ public class BaseMalariaRegisterFragment extends BaseRegisterFragment implements
 
     @Override
     public void initializeAdapter(Set<View> visibleColumns) {
-        MalariaRegisterProvider malariaRegisterProvider = new MalariaRegisterProvider(getActivity(), paginationViewHandler, registerActionHandler, visibleColumns, commonRepository());
+        MalariaRegisterProvider malariaRegisterProvider = new MalariaRegisterProvider(getActivity(), paginationViewHandler, registerActionHandler, visibleColumns);
         clientAdapter = new RecyclerViewPaginatedAdapter(null, malariaRegisterProvider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);

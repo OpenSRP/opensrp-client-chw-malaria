@@ -65,16 +65,13 @@ public class BaseMalariaRegisterActivity extends BaseRegisterActivity implements
     public void startFormActivity(String formName, String entityId, String metaData) {
         try {
             if (mBaseFragment instanceof BaseMalariaRegisterFragment) {
-                presenter().startForm(formName, entityId, metaData, getLocationID());
+                String locationId = Context.getInstance().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
+                presenter().startForm(formName, entityId, metaData, locationId);
             }
         } catch (Exception e) {
             Timber.e(e);
             displayToast(getString(R.string.error_unable_to_start_form));
         }
-    }
-
-    protected String getLocationID() {
-        return Context.getInstance().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
     }
 
     @Override
@@ -98,7 +95,6 @@ public class BaseMalariaRegisterActivity extends BaseRegisterActivity implements
         return BaseMalariaRegisterActivity.class;
     }
 
-
     @Override
     protected void onActivityResultExtended(int requestCode, int resultCode, Intent data) {
         if (requestCode == Constants.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
@@ -110,7 +106,6 @@ public class BaseMalariaRegisterActivity extends BaseRegisterActivity implements
     public List<String> getViewIdentifiers() {
         return Arrays.asList(Constants.CONFIGURATION.MALARIA_CONFIRMATION);
     }
-
 
     /**
      * Override this to subscribe to bottom navigation
@@ -126,13 +121,10 @@ public class BaseMalariaRegisterActivity extends BaseRegisterActivity implements
             bottomNavigationView.getMenu().removeItem(R.id.action_register);
             bottomNavigationView.getMenu().removeItem(org.smartregister.R.id.action_search);
             bottomNavigationView.getMenu().removeItem(org.smartregister.R.id.action_library);
-
             bottomNavigationView.inflateMenu(getMenuResource());
             bottomNavigationHelper.disableShiftMode(bottomNavigationView);
-
             BottomNavigationListener familyBottomNavigationListener = getBottomNavigation(this);
             bottomNavigationView.setOnNavigationItemSelectedListener(familyBottomNavigationListener);
-
         }
     }
 

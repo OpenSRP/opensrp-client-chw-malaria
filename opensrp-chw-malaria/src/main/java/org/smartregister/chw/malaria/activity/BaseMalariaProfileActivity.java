@@ -54,6 +54,8 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
     protected TextView textViewRecordMalaria;
     protected TextView textViewRecordAnc;
     protected TextView textViewRecordAncNotDone;
+    protected TextView textViewVisitDone;
+    protected TextView textViewVisitDoneEdit;
     protected TextView textview_positive_date;
     protected View view_last_visit_row;
     protected View view_most_due_overdue_row;
@@ -63,6 +65,7 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
     protected RelativeLayout rlUpcomingServices;
     protected RelativeLayout rlFamilyServicesDue;
     protected RelativeLayout visitStatus;
+    protected RelativeLayout visitDone;
     protected TextView textViewUndo;
     protected RelativeLayout rlMalariaPositiveDate;
     private TextView tvUpComingServices;
@@ -105,6 +108,7 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
         view_most_due_overdue_row = findViewById(R.id.view_most_due_overdue_row);
         view_family_row = findViewById(R.id.view_family_row);
         view_positive_date_row = findViewById(R.id.view_positive_date_row);
+        textViewVisitDone = findViewById(R.id.textview_visit_done);
 
         tvUpComingServices = findViewById(R.id.textview_name_due);
         tvFamilyStatus = findViewById(R.id.textview_family_has);
@@ -118,6 +122,7 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
         progressBar = findViewById(R.id.progress_bar);
 
         visitStatus = findViewById(R.id.record_visit_not_done_bar);
+        visitDone = findViewById(R.id.visit_done_bar);
 
         findViewById(R.id.rlLastVisit).setOnClickListener(this);
         findViewById(R.id.rlUpcomingServices).setOnClickListener(this);
@@ -135,6 +140,9 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
 
         textViewUndo = findViewById(R.id.textview_undo);
         textViewUndo.setOnClickListener(this);
+
+        textViewVisitDoneEdit = findViewById(R.id.textview_edit);
+        textViewVisitDoneEdit.setOnClickListener(this);
 
         imageView = findViewById(R.id.imageview_profile);
         imageRenderHelper = new ImageRenderHelper(this);

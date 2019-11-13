@@ -45,4 +45,6 @@
     <string name="call_anc_client">ANC Client</string>
     <string name="call_pnc_client">PNC Client</string>
     <string name="call_head_of_family">Call Head of Family</string>
+    <string name="edit">EDIT</string>
+    <string name="visit_done">Visit Done</string>
 </resources>

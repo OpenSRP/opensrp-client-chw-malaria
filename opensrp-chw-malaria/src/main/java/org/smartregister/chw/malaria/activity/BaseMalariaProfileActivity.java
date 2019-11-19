@@ -68,6 +68,7 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
     protected RelativeLayout visitDone;
     protected TextView textViewUndo;
     protected RelativeLayout rlMalariaPositiveDate;
+    protected LinearLayout recordVisits;
     private TextView tvUpComingServices;
     private TextView tvFamilyStatus;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM", Locale.getDefault());
@@ -123,6 +124,8 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
 
         visitStatus = findViewById(R.id.record_visit_not_done_bar);
         visitDone = findViewById(R.id.visit_done_bar);
+
+        recordVisits = findViewById(R.id.record_visits);
 
         findViewById(R.id.rlLastVisit).setOnClickListener(this);
         findViewById(R.id.rlUpcomingServices).setOnClickListener(this);

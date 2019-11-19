@@ -10,12 +10,6 @@ public class BaseMalariaRegisterActivityTest {
     private BaseMalariaRegisterActivity baseMalariaRegisterActivity = new BaseMalariaRegisterActivity();
 
     @Test
-    public void testGetLocationID() {
-        Assert.assertEquals(BaseMalariaRegisterActivity.class,
-                baseMalariaRegisterActivity.getFamilyFormActivity());
-    }
-
-    @Test
     public void assertNotNull() {
         Assert.assertNotNull(baseMalariaRegisterActivity);
     }
@@ -23,11 +17,6 @@ public class BaseMalariaRegisterActivityTest {
     @Test
     public void testFormConfig() {
         Assert.assertNull(baseMalariaRegisterActivity.getFormConfig());
-    }
-
-    @Test
-    public void checkFamilyForm() {
-        Assert.assertNotNull(baseMalariaRegisterActivity.getFamilyFormActivity());
     }
 
     @Test

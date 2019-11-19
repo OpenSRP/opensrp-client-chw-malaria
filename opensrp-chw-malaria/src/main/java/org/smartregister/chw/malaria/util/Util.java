@@ -102,4 +102,10 @@ public class Util {
             return true;
         }
     }
+
+    public static void saveFormEvent(final String jsonString) throws Exception {
+        AllSharedPreferences allSharedPreferences = MalariaLibrary.getInstance().context().allSharedPreferences();
+        Event baseEvent = JsonFormUtils.processJsonForm(allSharedPreferences, jsonString);
+        Util.processEvent(allSharedPreferences, baseEvent);
+    }
 }

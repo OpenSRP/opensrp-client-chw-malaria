@@ -40,6 +40,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import timber.log.Timber;
 
 
 public class BaseMalariaProfileActivity extends BaseProfileActivity implements MalariaProfileContract.View, MalariaProfileContract.InteractorCallBack {
@@ -228,7 +229,7 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
             findViewById(R.id.primary_malaria_caregiver).setVisibility(View.VISIBLE);
         }
         if (StringUtils.isNotBlank(MEMBER_OBJECT.getMalariaTestDate())) {
-            textview_positive_date.setText(getString(R.string.malaria_positive)+" "+formatTime(MEMBER_OBJECT.getMalariaTestDate()));
+            textview_positive_date.setText(getString(R.string.malaria_positive) + " " + formatTime(MEMBER_OBJECT.getMalariaTestDate()));
         }
     }
 
@@ -335,8 +336,15 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
             Date date = df.parse(dateTime);
             timePassedString = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date);
         } catch (Exception e) {
-            e.printStackTrace();
+            Timber.d(e);
         }
         return timePassedString;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Constants.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
+            profilePresenter.saveForm(data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON));
+        }
     }
 }

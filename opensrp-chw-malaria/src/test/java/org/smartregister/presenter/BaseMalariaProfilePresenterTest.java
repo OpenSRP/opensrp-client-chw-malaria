@@ -47,7 +47,7 @@ public class BaseMalariaProfilePresenterTest {
 
     @Test
     public void malariaTestDatePeriodIsBetweenSevenAndTen() {
-        profilePresenter.recordMalariaButton(7);
+        profilePresenter.recordMalariaButton(8);
         verify(view).setDueColor();
     }
 
@@ -55,6 +55,12 @@ public class BaseMalariaProfilePresenterTest {
     public void malariaTestDatePeriodGreaterThanTen() {
         profilePresenter.recordMalariaButton(14);
         verify(view).setOverDueColor();
+    }
+
+    @Test
+    public void malariaTestDatePeriodIsMoreThanFourteen() {
+        profilePresenter.recordMalariaButton(15);
+        verify(view).hideView();
     }
 
     @Test

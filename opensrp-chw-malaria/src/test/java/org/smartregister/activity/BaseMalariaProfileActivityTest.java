@@ -2,6 +2,7 @@ package org.smartregister.activity;
 
 import android.graphics.Color;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -66,5 +67,12 @@ public class BaseMalariaProfileActivityTest {
         Mockito.verify(baseMalariaProfileActivity).recordPnc(null);
     }
 
+    @Test
+    public void showProgressBar() {
+        ProgressBar progressBar = Mockito.mock(ProgressBar.class);
+        baseMalariaProfileActivity.showProgressBar(true);
+        Assert.assertEquals(View.VISIBLE, progressBar.getVisibility());
+
+    }
 
 }

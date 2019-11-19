@@ -5,6 +5,7 @@ import android.support.annotation.VisibleForTesting;
 import org.smartregister.chw.malaria.contract.MalariaProfileContract;
 import org.smartregister.chw.malaria.domain.MemberObject;
 import org.smartregister.chw.malaria.util.AppExecutors;
+import org.smartregister.chw.malaria.util.Util;
 import org.smartregister.domain.AlertStatus;
 
 import java.util.Date;
@@ -28,6 +29,20 @@ public class BaseMalariaProfileInteractor implements MalariaProfileContract.Inte
             callback.refreshMedicalHistory(true);
             callback.refreshUpComingServicesStatus("Malaria Visit", AlertStatus.normal, new Date());
         });
+        appExecutors.diskIO().execute(runnable);
+    }
+
+    @Override
+    public void saveRegistration(final String jsonString, final MalariaProfileContract.InteractorCallBack callback) {
+
+        Runnable runnable = () -> {
+            try {
+                Util.saveFormEvent(jsonString);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        };
         appExecutors.diskIO().execute(runnable);
     }
 }

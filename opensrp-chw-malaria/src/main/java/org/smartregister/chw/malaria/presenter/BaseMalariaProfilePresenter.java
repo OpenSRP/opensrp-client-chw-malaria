@@ -8,6 +8,8 @@ import org.smartregister.chw.malaria.domain.MemberObject;
 
 import java.lang.ref.WeakReference;
 
+import timber.log.Timber;
+
 
 public class BaseMalariaProfilePresenter implements MalariaProfileContract.Presenter {
     protected WeakReference<MalariaProfileContract.View> view;
@@ -34,7 +36,7 @@ public class BaseMalariaProfilePresenter implements MalariaProfileContract.Prese
             return;
         }
 
-        if (days_from_malaria_test_date < 7 || days_from_malaria_test_date > 14) {
+        if (days_from_malaria_test_date <= 7 || days_from_malaria_test_date > 14) {
             getView().hideView();
         } else if (days_from_malaria_test_date <= 10) {
             getView().setDueColor();
@@ -54,5 +56,14 @@ public class BaseMalariaProfilePresenter implements MalariaProfileContract.Prese
     @Override
     public void refreshProfileBottom() {
         interactor.refreshProfileInfo(memberObject, getView());
+    }
+
+    @Override
+    public void saveForm(String jsonString) {
+        try {
+            interactor.saveRegistration(jsonString, getView());
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 }

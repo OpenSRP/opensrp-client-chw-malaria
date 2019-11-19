@@ -76,7 +76,7 @@ public class BaseMalariaRegisterActivity extends BaseRegisterActivity implements
 
     @Override
     public void startFormActivity(JSONObject jsonForm) {
-        Intent intent = new Intent(this, getFamilyFormActivity());
+        Intent intent = new Intent(this, BaseMalariaRegisterActivity.class);
         intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
 
         if (getFormConfig() != null) {
@@ -89,10 +89,6 @@ public class BaseMalariaRegisterActivity extends BaseRegisterActivity implements
     @Override
     public Form getFormConfig() {
         return null;
-    }
-
-    public Class getFamilyFormActivity() {
-        return BaseMalariaRegisterActivity.class;
     }
 
     @Override
@@ -123,7 +119,7 @@ public class BaseMalariaRegisterActivity extends BaseRegisterActivity implements
             bottomNavigationView.getMenu().removeItem(org.smartregister.R.id.action_library);
             bottomNavigationView.inflateMenu(getMenuResource());
             bottomNavigationHelper.disableShiftMode(bottomNavigationView);
-            BottomNavigationListener familyBottomNavigationListener = getBottomNavigation(this);
+            BottomNavigationListener familyBottomNavigationListener = new MalariaBottomNavigationListener(this);
             bottomNavigationView.setOnNavigationItemSelectedListener(familyBottomNavigationListener);
         }
     }
@@ -131,10 +127,6 @@ public class BaseMalariaRegisterActivity extends BaseRegisterActivity implements
     @MenuRes
     public int getMenuResource() {
         return R.menu.bottom_nav_family_menu;
-    }
-
-    public BottomNavigationListener getBottomNavigation(Activity activity) {
-        return new MalariaBottomNavigationListener(activity);
     }
 
     @Override

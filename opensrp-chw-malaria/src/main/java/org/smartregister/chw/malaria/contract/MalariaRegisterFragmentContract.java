@@ -23,8 +23,6 @@ public interface MalariaRegisterFragmentContract {
 
     interface Presenter extends BaseRegisterFragmentContract.Presenter {
 
-        void updateSortAndFilter(List<Field> filterList, Field sortField);
-
         String getMainCondition();
 
         String getDefaultSortQuery();

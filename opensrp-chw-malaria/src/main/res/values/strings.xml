@@ -33,7 +33,7 @@
     <string name="copied_phone_number">PhoneNumber copied to clipboard</string>
     <string name="call">Call</string>
     <string name="record_anc">Record ANC visit</string>
-    <string name="record_anc_visit_not_done">ANC visit not done</string>
+    <string name="record_anc_visit_not_done">Visit not done</string>
     <string name="not_visiting_this_month">Not visiting this month</string>
     <string name="undo">UNDO</string>
     <string name="view_malaria_test_result">View malaria test results</string>

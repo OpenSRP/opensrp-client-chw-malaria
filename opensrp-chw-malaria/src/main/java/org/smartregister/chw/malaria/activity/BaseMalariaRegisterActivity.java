@@ -36,6 +36,7 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import timber.log.Timber;
 
@@ -61,13 +62,13 @@ public class BaseMalariaRegisterActivity extends BaseRegisterActivity implements
      */
     protected void onStartActivityWithAction() {
         if (FORM_NAME != null && ACTION != null) {
-            startFormActivity(FORM_NAME, BASE_ENTITY_ID, null);
+            startFormActivity(FORM_NAME, BASE_ENTITY_ID, (String) null);
         }
     }
 
     @Override
     public void startRegistration() {
-        startFormActivity(FORM_NAME, null, null);
+        startFormActivity(FORM_NAME, null, (String) null);
     }
 
     @Override
@@ -151,6 +152,11 @@ public class BaseMalariaRegisterActivity extends BaseRegisterActivity implements
     @Override
     protected Fragment[] getOtherFragments() {
         return new Fragment[0];
+    }
+
+    @Override
+    public void startFormActivity(String s, String s1, Map<String, String> map) {
+        // Abstract method implementation
     }
 
     @Override

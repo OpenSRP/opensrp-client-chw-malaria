@@ -8,6 +8,7 @@ import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.configurableviews.model.ViewConfiguration;
+import org.smartregister.view.contract.IView;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -24,7 +25,7 @@ public class BaseMalariaRegisterFragmentPresenter implements MalariaRegisterFrag
 
     protected RegisterConfiguration config;
 
-    protected Set<View> visibleColumns = new TreeSet<>();
+    protected Set<IView> visibleColumns = new TreeSet<>();
     protected String viewConfigurationIdentifier;
 
     public BaseMalariaRegisterFragmentPresenter(MalariaRegisterFragmentContract.View view, MalariaRegisterFragmentContract.Model model, String viewConfigurationIdentifier) {

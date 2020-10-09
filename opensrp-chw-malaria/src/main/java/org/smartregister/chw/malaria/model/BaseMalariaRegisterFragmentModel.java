@@ -1,14 +1,18 @@
 package org.smartregister.chw.malaria.model;
 
+import org.json.JSONArray;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.malaria.contract.MalariaRegisterFragmentContract;
 import org.smartregister.chw.malaria.util.ConfigHelper;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
-import org.smartregister.configurableviews.model.View;
 import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
+import org.smartregister.domain.Response;
+import org.smartregister.view.contract.IField;
+import org.smartregister.view.contract.IView;
 
+import java.util.List;
 import java.util.Set;
 
 public class BaseMalariaRegisterFragmentModel implements MalariaRegisterFragmentContract.Model {
@@ -24,7 +28,7 @@ public class BaseMalariaRegisterFragmentModel implements MalariaRegisterFragment
     }
 
     @Override
-    public Set<View> getRegisterActiveColumns(String viewConfigurationIdentifier) {
+    public Set<IView> getRegisterActiveColumns(String viewConfigurationIdentifier) {
         return ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper().getRegisterActiveColumns(viewConfigurationIdentifier);
     }
 
@@ -40,6 +44,21 @@ public class BaseMalariaRegisterFragmentModel implements MalariaRegisterFragment
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.selectInitiateMainTable(tableName, mainColumns(tableName));
         return queryBUilder.mainCondition(mainCondition);
+    }
+
+    @Override
+    public String getFilterText(List<IField> list, String s) {
+        return null;
+    }
+
+    @Override
+    public String getSortText(IField iField) {
+        return null;
+    }
+
+    @Override
+    public JSONArray getJsonArray(Response<String> response) {
+        return null;
     }
 
     protected String[] mainColumns(String tableName) {

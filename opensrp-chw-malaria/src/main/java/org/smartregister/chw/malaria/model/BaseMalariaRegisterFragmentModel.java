@@ -11,6 +11,7 @@ import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.domain.Response;
 import org.smartregister.view.contract.IField;
 import org.smartregister.view.contract.IView;
+import org.smartregister.view.contract.IViewConfiguration;
 
 import java.util.List;
 import java.util.Set;
@@ -23,7 +24,7 @@ public class BaseMalariaRegisterFragmentModel implements MalariaRegisterFragment
     }
 
     @Override
-    public ViewConfiguration getViewConfiguration(String viewConfigurationIdentifier) {
+    public IViewConfiguration getViewConfiguration(String viewConfigurationIdentifier) {
         return ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper().getViewConfiguration(viewConfigurationIdentifier);
     }
 

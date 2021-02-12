@@ -100,12 +100,14 @@ public class MalariaRegisterProviderTest {
     @Test
     public void updateMemberGender() throws Exception {
         Activity activity = Mockito.mock(Activity.class);
+        Resources resources = Mockito.mock(Resources.class);
         MalariaRegisterProvider provider = new MalariaRegisterProvider(activity, listener, listener, null);
         Map<String, String> map = new HashMap<>();
         map.put(DBConstants.KEY.GENDER, "Male");
 
+        Mockito.when(activity.getResources()).thenReturn(resources);
         Mockito.when(commonPersonObjectClient.getColumnmaps()).thenReturn(map);
-        Assert.assertEquals("Male", Whitebox.invokeMethod(provider, "updateMemberGender", commonPersonObjectClient));
+        Assert.assertEquals(resources.getString(R.string.male), Whitebox.invokeMethod(provider, "updateMemberGender", commonPersonObjectClient));
     }
 
 

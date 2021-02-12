@@ -22,6 +22,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import org.json.JSONObject;
+import org.opensrp.api.constants.Gender;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.malaria.contract.BaseMalariaCallDialogContract;
 import org.smartregister.chw.malaria.dao.MalariaDao;
@@ -138,5 +139,14 @@ public class MalariaUtil {
             return null;
         }
 
+    }
+
+    public static String getGenderTranslated(Context context, String gender) {
+        if (gender.equalsIgnoreCase(Gender.MALE.toString())) {
+            return context.getResources().getString(R.string.male);
+        } else if (gender.equalsIgnoreCase(Gender.FEMALE.toString())) {
+            return context.getResources().getString(R.string.female);
+        }
+        return "";
     }
 }

@@ -14,6 +14,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.smartregister.chw.malaria.fragment.BaseMalariaRegisterFragment;
 import org.smartregister.chw.malaria.util.DBConstants;
+import org.smartregister.chw.malaria.util.MalariaUtil;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewProvider;
 import org.smartregister.malaria.R;
@@ -63,8 +64,10 @@ public class MalariaRegisterProvider implements RecyclerViewProvider<MalariaRegi
             return context.getResources().getString(R.string.anc_string);
         } else if ("0".equals(Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.IS_PNC_CLOSED, false))) {
             return context.getResources().getString(R.string.pnc_string);
-        } else
-            return Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.GENDER, true);
+        } else {
+            String gender = Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.GENDER, true);
+            return MalariaUtil.getGenderTranslated(context, gender);
+        }
     }
 
     private void populatePatientColumn(CommonPersonObjectClient pc, final RegisterViewHolder viewHolder) {

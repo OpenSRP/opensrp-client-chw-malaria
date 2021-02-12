@@ -210,7 +210,7 @@ public class BaseMalariaProfileActivity extends BaseProfileActivity implements M
         int age = new Period(new DateTime(memberObject.getAge()), new DateTime()).getYears();
         textViewName.setText(String.format("%s %s %s, %d", memberObject.getFirstName(),
                 memberObject.getMiddleName(), memberObject.getLastName(), age));
-        textViewGender.setText(memberObject.getGender());
+        textViewGender.setText(MalariaUtil.getGenderTranslated(this, memberObject.getGender()));
         textViewLocation.setText(memberObject.getAddress());
         textViewUniqueID.setText(memberObject.getUniqueId());
 

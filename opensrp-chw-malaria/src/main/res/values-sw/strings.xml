@@ -46,5 +46,7 @@
     <string name="pnc_string">Baada ya kujifungua</string>
     <string name="visit_done">Tembeleo limekamilika</string>
     <string name="edit">HARIRI</string>
+    <string name="male">Me</string>
+    <string name="female">Ke</string>
 
 </resources>

@@ -48,5 +48,7 @@
     <string name="pnc_string">PNC</string>
     <string name="visit_done">Visit Done</string>
     <string name="edit">EDIT</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
 
 </resources>

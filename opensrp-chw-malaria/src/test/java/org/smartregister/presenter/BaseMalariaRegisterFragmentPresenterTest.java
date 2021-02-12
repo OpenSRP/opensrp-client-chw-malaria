@@ -11,6 +11,7 @@ import org.smartregister.chw.malaria.presenter.BaseMalariaRegisterFragmentPresen
 import org.smartregister.chw.malaria.util.Constants;
 import org.smartregister.chw.malaria.util.DBConstants;
 import org.smartregister.configurableviews.model.View;
+import org.smartregister.view.contract.IView;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -58,7 +59,7 @@ public class BaseMalariaRegisterFragmentPresenterTest {
 
     @Test
     public void initializeQueries() {
-        Set<View> visibleColumns = new TreeSet<>();
+        Set<IView> visibleColumns = new TreeSet<>();
         baseMalariaRegisterFragmentPresenter.initializeQueries(null);
         Mockito.doNothing().when(view).initializeQueryParams("ec_malaria_confirmation", null, null);
         Mockito.verify(view).initializeQueryParams("ec_malaria_confirmation", null, null);

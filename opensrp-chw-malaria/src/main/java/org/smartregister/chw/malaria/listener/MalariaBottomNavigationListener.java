@@ -1,8 +1,9 @@
 package org.smartregister.chw.malaria.listener;
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
 import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
 
 import org.smartregister.listener.BottomNavigationListener;
 import org.smartregister.malaria.R;

@@ -10,6 +10,7 @@ import org.smartregister.chw.malaria.model.BaseMalariaRegisterFragmentModel;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.configurableviews.model.ViewConfiguration;
+import org.smartregister.view.contract.IView;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -42,7 +43,7 @@ public class BaseMalariaRegisterFragmentModelTest {
 
     @Test
     public void testGetRegisterActiveColumns() {
-        Set<View> views = new HashSet<View>();
+        Set<IView> views = new HashSet<>();
         Mockito.when(baseMalariaRegisterFragmentModel.getRegisterActiveColumns(Mockito.anyString()))
                 .thenReturn(views);
         Assert.assertEquals(views, baseMalariaRegisterFragmentModel.getRegisterActiveColumns(Mockito.anyString()));

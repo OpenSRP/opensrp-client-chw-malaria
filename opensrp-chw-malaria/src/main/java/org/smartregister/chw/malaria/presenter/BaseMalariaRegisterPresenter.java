@@ -10,6 +10,8 @@ import org.smartregister.malaria.R;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
+import timber.log.Timber;
+
 public class BaseMalariaRegisterPresenter implements MalariaRegisterContract.Presenter, MalariaRegisterContract.InteractorCallBack {
 
     public static final String TAG = BaseMalariaRegisterPresenter.class.getName();
@@ -25,13 +27,18 @@ public class BaseMalariaRegisterPresenter implements MalariaRegisterContract.Pre
     }
 
     @Override
-    public void startForm(String formName, String entityId, String metadata, String currentLocationId) throws Exception {
+    public void startForm(String formName, String entityId, String metadata, String currentLocationId) {
         if (StringUtils.isBlank(entityId)) {
             return;
         }
 
-        JSONObject form = model.getFormAsJson(formName, entityId, currentLocationId);
-        getView().startFormActivity(form);
+        JSONObject form;
+        try {
+            form = model.getFormAsJson(formName, entityId, currentLocationId);
+            getView().startFormActivity(form);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 
     @Override
@@ -40,7 +47,7 @@ public class BaseMalariaRegisterPresenter implements MalariaRegisterContract.Pre
             getView().showProgressDialog(R.string.saving_dialog_title);
             interactor.saveRegistration(jsonString, this);
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
     }
 
